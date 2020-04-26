@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "168922811752",
+    "firebase_url": "https://mydstv-9f774.firebaseio.com",
+    "project_id": "mydstv-9f774",
+    "storage_bucket": "mydstv-9f774.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:168922811752:android:16445b02d58e99d8881add",
+        "android_client_info": {
+          "package_name": "com.zoe.mydstv"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "168922811752-n4aieeev165cr4ccqhhba11teke9jl4l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEysHr8qaE48Ci9a1kDE_YEDdlkThlEaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "168922811752-n4aieeev165cr4ccqhhba11teke9jl4l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "168922811752-o3n9sb04gm8383qqir9n1s6aehq1sv0g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.zoe.mydstv"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

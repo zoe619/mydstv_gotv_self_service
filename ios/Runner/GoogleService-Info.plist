@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>168922811752-o3n9sb04gm8383qqir9n1s6aehq1sv0g.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.168922811752-o3n9sb04gm8383qqir9n1s6aehq1sv0g</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAYz-r1iw-0r0piLf-up7Qw6cKZVU7oOik</string>
+	<key>GCM_SENDER_ID</key>
+	<string>168922811752</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.zoe.mydstv</string>
+	<key>PROJECT_ID</key>
+	<string>mydstv-9f774</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mydstv-9f774.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:168922811752:ios:3eb7a9c36cdaeb4e881add</string>
+	<key>DATABASE_URL</key>
+	<string>https://mydstv-9f774.firebaseio.com</string>
+</dict>
+</plist>
