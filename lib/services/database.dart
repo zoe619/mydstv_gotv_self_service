@@ -475,7 +475,7 @@ class DatabaseService
       map['reference'] = reference;
 
 
-      String url = "https://mydstvgotvaddPurforselfservice.com/new_mobile/pizza/purchase.php";
+      String url = "https://mydstvgotvforselfservice.com/new_mobile/pizza/purchase.php";
       http.Response response  = await http.post(Uri.encodeFull(url), body: map, headers: {"Accept": "application/json"});
       if(response.statusCode == 200)
       {
