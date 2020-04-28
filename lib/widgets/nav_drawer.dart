@@ -71,7 +71,7 @@ class NavDrawer extends StatelessWidget
               child: Center(
 
                 child: Text(
-                  'mydstv gotv self_support',
+                  'mydstv gotv self support',
                   style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
               ),

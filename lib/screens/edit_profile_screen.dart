@@ -145,7 +145,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
     else if(_isLoading == false)
     {
       _scaffoldKey.currentState.showSnackBar(
-          new SnackBar(duration: new Duration(seconds: 10),
+          new SnackBar(duration: new Duration(seconds: 5),
             content:
             new Row(
               children: <Widget>[
@@ -164,14 +164,14 @@ class _EditProfileScreenState extends State<EditProfileScreen>
 
         final dbService = Provider.of<DatabaseService>(context, listen: false);
 //        update user info in mysql server database
-        dynamic res = await dbService.updateUser(widget.user.email, _phone);
+        List res = await dbService.updateUser(widget.user.email, _phone);
         Map<String, dynamic> map;
         for(int i = 0; i < res.length; i++)
         {
           map = res[i];
 
         }
-        print(map);
+
         if(map['status'] == "fail")
         {
           _showErrorDialog(map['msg']);
@@ -188,11 +188,11 @@ class _EditProfileScreenState extends State<EditProfileScreen>
           DatabaseService.updateUserFirebase(user);
           Navigator.pop(context);
 
-          if(mounted){
+
             setState(() {
               _isLoading = true;
             });
-          }
+
         }
 
       }

@@ -76,7 +76,7 @@ class _WelcomeState extends State<Welcome>
                         Expanded(
                           child: Text("Hi, $_name What a great day \n to be alive!", style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: 10.0,
+                            fontSize: 8.0,
                           ),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
@@ -95,8 +95,8 @@ class _WelcomeState extends State<Welcome>
                         SizedBox(height: 15.0),
                         Flexible(
                           child: Text("Customer care: 08033169636, 08099926467", style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13.0,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 10.0,
                             color: Theme.of(context).primaryColor
                           ),
 

@@ -280,7 +280,7 @@ class _RequestInstallationState extends State<RequestInstallation>
     else if (_isLoading == false)
     {
       _scaffoldKey.currentState.showSnackBar(
-          new SnackBar(duration: new Duration(seconds: 20),
+          new SnackBar(duration: new Duration(seconds: 5),
             content:
             new Row(
               children: <Widget>[
@@ -289,6 +289,9 @@ class _RequestInstallationState extends State<RequestInstallation>
               ],
             ),
           ));
+
+
+
     }
     try
     {
@@ -296,7 +299,7 @@ class _RequestInstallationState extends State<RequestInstallation>
       if (_installationFormKey.currentState.validate())
       {
         _installationFormKey.currentState.save();
-        print(_brand + " "+_service + " "+ _address + " "+_email);
+
 
         List res = await Provider.of<DatabaseService>(context, listen: false).requestInstallation(_brand, _service,
             _address, _email);
@@ -313,15 +316,14 @@ class _RequestInstallationState extends State<RequestInstallation>
         if(map['status'] == "fail")
         {
           _showErrorDialog(map['msg'], map['status']);
+          setState(() => _isLoading = true);
         }
         else
         {
           _showErrorDialog(map['msg'], map['status']);
-          if(mounted){
-            setState(() {
-              _isLoading = true;
-            });
-          }
+
+            setState(() => _isLoading = true);
+
         }
 
 
@@ -349,7 +351,10 @@ class _RequestInstallationState extends State<RequestInstallation>
                 onPressed: ()=> Navigator.pop(context),
               ) : FlatButton(
                 child: Text('Ok'),
-                onPressed: ()=> Navigator.pop(context),
+                onPressed: (){
+                  Navigator.pop(context);
+
+                },
               )
             ],
           );

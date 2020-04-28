@@ -68,26 +68,32 @@ class _ResetPasswordState extends State<ResetPassword>
               ],
             ),
           ));
+
+
+
     }
-
-
     final authService = Provider.of<AuthService>(context, listen: false);
 
 
     try
     {
-       if(_resetFormKey.currentState.validate())
-       {
-         _resetFormKey.currentState.save();
+      if(_resetFormKey.currentState.validate())
+      {
+        _resetFormKey.currentState.save();
 
-         await authService.sendPasswordReset(_email);
-         _showErrorDialog("password reset link has been sent to your mail", "success");
+        await authService.sendPasswordReset(_email);
+        _showErrorDialog("password reset link has been sent to your mail", "success");
+        setState(() {
+          _isLoading = true;
+        });
 
-       }
+      }
     }
     on PlatformException catch(error){
       _showErrorDialog(error.message, "error");
     }
+
+
 
   }
 
@@ -105,7 +111,10 @@ class _ResetPasswordState extends State<ResetPassword>
                 onPressed: ()=> Navigator.pop(context),
               ) : FlatButton(
                 child: Text('Ok'),
-                onPressed: ()=> Navigator.pop(context),
+                onPressed: (){
+                  Navigator.pop(context);
+
+                }
               )
             ],
           );
@@ -125,7 +134,7 @@ class _ResetPasswordState extends State<ResetPassword>
         title: Padding(
           padding: const EdgeInsets.only(right: 25.0),
           child: Center(child:
-          Text('mydstv gotv self_service', style: TextStyle(
+          Text('mydstv gotv self support', style: TextStyle(
             color: Colors.white,
             fontSize: 20.0,
           ),)),

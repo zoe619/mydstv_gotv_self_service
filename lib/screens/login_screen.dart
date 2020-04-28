@@ -117,7 +117,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
 
-  _submit() async{
+  _submit() async
+  {
 
 
     if(_selectedIndex == 0 && !_loginFormKey.currentState.validate())
@@ -141,9 +142,10 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
           ));
+
+
+
     }
-
-
     final authService = Provider.of<AuthService>(context, listen: false);
     final dbService = Provider.of<DatabaseService>(context, listen: false);
 
@@ -154,12 +156,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
         _loginFormKey.currentState.save();
         bool login = await authService.login(_email, _password);
-        if(mounted)
-        {
+
           setState(() {
             _isLoading = true;
           });
-        }
+
         if(login)
         {
           Navigator.push(context, MaterialPageRoute(
@@ -182,7 +183,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
         for(int i = 0; i < res.length; i++)
         {
-           map = res[i];
+          map = res[i];
 
         }
 
@@ -191,15 +192,15 @@ class _LoginScreenState extends State<LoginScreen> {
           _showErrorDialog(map['msg'], map['status']);
         }
         else
-          {
-            _showErrorDialog2("An email verification link has been sent to your mail", "success");
-            await authService.signUp(_name, _email, _password, _phone);
-            if(mounted)
-            {
-              setState(() {
-                _isLoading = true;
-              });
-            }
+        {
+          await authService.signUp(_name, _email, _password, _phone);
+          _showErrorDialog2("An email verification link has been sent to your mail", "success");
+
+
+            setState(() {
+              _isLoading = true;
+            });
+
 
         }
 
@@ -209,6 +210,8 @@ class _LoginScreenState extends State<LoginScreen> {
     on PlatformException catch (err) {
       _showErrorDialog(err.message, "error");
     }
+
+
 
   }
 
@@ -227,8 +230,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: ()=>Navigator.pop(context),
               ) : FlatButton(
                 child: Text('ok'),
-                onPressed: ()=> Navigator.pop(context),
-//                  Navigator.of(context).popUntil((route) => route.isFirst);
+                onPressed: () {
+                  Navigator.pop(context);
+
+                }
               )
             ],
           );
@@ -249,11 +254,10 @@ class _LoginScreenState extends State<LoginScreen> {
               Platform.isIOS
                   ? new CupertinoButton(
                 child: Text('ok'),
-                onPressed: ()=>Navigator.pop(context),
+                onPressed: ()=>Navigator.popAndPushNamed(context, "/homePage"),
               ) : FlatButton(
                 child: Text('ok'),
                 onPressed: ()=> Navigator.popAndPushNamed(context, "/homePage"),
-//                  Navigator.of(context).popUntil((route) => route.isFirst);
               )
             ],
           );
@@ -273,7 +277,7 @@ class _LoginScreenState extends State<LoginScreen> {
         title: Padding(
           padding: const EdgeInsets.only(right: 25.0),
           child: Center(child:
-          Text('mydstv gotv self_service', style: TextStyle(
+          Text('mydstv gotv self support', style: TextStyle(
             color: Colors.white,
             fontSize: 20.0,
           ),)),

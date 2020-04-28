@@ -10,20 +10,17 @@ import 'package:provider/provider.dart';
 
 
 String backendUrl = 'https://api.paystack.co/transaction';
-// Set this to a public key that matches the secret key you supplied while creating the heroku instance
-//String paystackPublicKey = 'pk_test_ace7abfdd52d9bebce70f286b9cee8cd74acedc8';
 
-String paystackSecretKey = 'sk_test_8024ba0a0bc9b5e2d9245e92c72f314c09e28e8c';
 
-String paystackPublicKey = 'pk_live_95c487e82efab6003e54cbeaa7bcf9bfda683f0f';
+String paystackSecretKey = 'sk_live_a9a87b7497c6a00f9b472e77198c5774a6378394';
+
+String paystackPublicKey = 'pk_live_140823c0754222c801446bd1b1b878f408f3b35a';
 
 
 class PaystackPay extends StatefulWidget
 {
 
-
   String price, email, type, plan, bouq, iuc, brand, product, month, number;
-
   PaystackPay({this.price, this.email, this.type, this.plan, this.bouq, this.iuc,
   this.brand, this.product, this.month, this.number});
 
@@ -39,7 +36,6 @@ class _PaystackPayState extends State<PaystackPay>
   final _horizontalSizeBox = const SizedBox(width: 10.0);
   var _border = new Container(
     width: double.infinity,
-
     height: 1.0,
     color: Colors.red,
   );
@@ -51,11 +47,27 @@ class _PaystackPayState extends State<PaystackPay>
   int _expiryMonth = 0;
   int _expiryYear = 0;
   String _reference;
+  int amount;
 
   @override
-  void initState() {
+  void initState()
+  {
     PaystackPlugin.initialize(publicKey: paystackPublicKey);
     super.initState();
+
+    if(int.parse(widget.price) <= 4000)
+    {
+      amount = int.parse(widget.price)  + 100 * 100;
+
+    }
+    else if(int.parse(widget.price) > 4000 ||  int.parse(widget.price) <= 10000 )
+    {
+      amount = int.parse(widget.price) + 150 * 100;
+
+    }
+    else{
+      amount = amount = int.parse(widget.price) + 200 * 100;
+    }
   }
 
   @override

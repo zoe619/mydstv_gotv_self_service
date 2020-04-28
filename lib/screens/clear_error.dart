@@ -39,6 +39,7 @@ class _ClearErrorState extends State<ClearError>
   String _selected;
   String _errorCode;
   List<ErrorCode> _codes;
+  bool _inProgress = false;
 
 
   @override
@@ -249,6 +250,8 @@ class _ClearErrorState extends State<ClearError>
               ],
             ),
           ));
+
+
     }
     try
     {
@@ -272,24 +275,26 @@ class _ClearErrorState extends State<ClearError>
         if(map['status'] == "fail")
         {
           _showErrorDialog(map['msg'], map['status']);
+          setState(() => _isLoading = true);
         }
         else
         {
           _showErrorDialog(map['msg'], map['status']);
-          if(mounted){
+
             setState(() {
               _isLoading = true;
             });
-          }
+
         }
 
 
 
       }
     }
-   on PlatformException catch(error){
+    on PlatformException catch(error){
       _showErrorDialog(error.message, "error");
-   }
+    }
+
 
 
   }
@@ -306,7 +311,10 @@ class _ClearErrorState extends State<ClearError>
               Platform.isIOS
                   ? new CupertinoButton() : FlatButton(
                 child: Text('Ok'),
-                onPressed: ()=> Navigator.pop(context),
+                onPressed: (){
+                  Navigator.pop(context);
+
+                },
               )
             ],
           );

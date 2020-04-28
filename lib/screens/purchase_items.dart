@@ -247,7 +247,7 @@ class _PurchaseItemsState extends State<PurchaseItems>
       drawer: NavDrawer(),
       appBar: AppBar(
         title: Center(child:
-        Text('purchase item', style: TextStyle(
+        Text('purchase items', style: TextStyle(
           color: Colors.white,
           fontSize: 32.0,
         ),)),

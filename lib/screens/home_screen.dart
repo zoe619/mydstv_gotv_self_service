@@ -158,21 +158,32 @@ class _HomeScreenState extends State<HomeScreen>
     _firebaseMessaging.configure(
         onMessage: (Map<String, dynamic> message)async
         {
-//          print('onMessage: $message');
+
           _setMessages(message);
         },
         onLaunch: (Map<String, dynamic> message)async
         {
-//          print('onLaunch: $message');
           _setMessages(message);
         },
         onResume: (Map<String, dynamic> message)async
         {
-//          print('onResume: $message');
+
           _setMessages(message);
         },
 
     );
+    _firebaseMessaging.requestNotificationPermissions(
+        const IosNotificationSettings(
+            sound: true,
+            badge: true,
+            alert: true
+        )
+    );
+
+    _firebaseMessaging.onIosSettingsRegistered.listen((settings)
+    {
+
+    });
   }
   _setMessages(Map<String, dynamic> message)async
   {
