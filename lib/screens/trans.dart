@@ -55,14 +55,16 @@ class _TransState extends State<Trans>
 
   }
 
-  _getTransaction() async{
-//    _email = "onisosomya.oj@gmail.com";
+  _getTransaction() async
+  {
+
     List<Transactions> transaction = await Provider.of<DatabaseService>(context, listen: false).getTransaction(_email);
-    setState(() {
-      _transaction = transaction;
+    if(mounted){
+      setState(() {
+        _transaction = transaction;
 
-
-    });
+      });
+    }
 
   }
 

@@ -57,17 +57,18 @@ class _PaystackPayState extends State<PaystackPay>
 
     if(int.parse(widget.price) <= 4000)
     {
-      amount = int.parse(widget.price)  + 100 * 100;
+      amount = int.parse(widget.price)  + 100;
 
     }
     else if(int.parse(widget.price) > 4000 ||  int.parse(widget.price) <= 10000 )
     {
-      amount = int.parse(widget.price) + 150 * 100;
+      amount = int.parse(widget.price) + 150;
 
     }
     else{
-      amount = amount = int.parse(widget.price) + 200 * 100;
+      amount = amount = int.parse(widget.price) + 200;
     }
+
   }
 
   @override
@@ -75,7 +76,7 @@ class _PaystackPayState extends State<PaystackPay>
     return new Scaffold(
       key: _scaffoldKey,
       appBar: new AppBar(title: Padding(
-        padding: const EdgeInsets.only(right: 30.0),
+        padding: const EdgeInsets.only(right: 40.0),
         child: Center(child: const Text("micgrand pay")),
       )),
       body: new Container(
@@ -272,7 +273,7 @@ class _PaystackPayState extends State<PaystackPay>
     setState(() => _inProgress = true);
     _formKey.currentState.save();
     Charge charge = Charge()
-      ..amount = int.parse(widget.price) * 100  < 10000 ? int.parse(widget.price) * 100 + 150 : int.parse(widget.price) * 100 + 200 // In base currency
+      ..amount = amount * 100 // In base currency
       ..email = widget.email
       ..card = _getCardFromUI();
 
@@ -343,7 +344,7 @@ class _PaystackPayState extends State<PaystackPay>
       // setting them after setting an access code would throw an exception
 
       charge
-        ..amount = 5 * 100// In base currency
+        ..amount = amount * 100// In base currency
         ..email = widget.email
         ..reference = _getReference()
         ..putCustomField('Charged From', 'Micgrand services');
@@ -418,6 +419,7 @@ class _PaystackPayState extends State<PaystackPay>
 
         setState(() => _inProgress = false);
         _showErrorDialog("Failed to charge card, please try again", "failed");
+        print(e.message);
 
         return;
       }
@@ -492,7 +494,8 @@ class _PaystackPayState extends State<PaystackPay>
 
             }
           }
-          else{
+          else if(widget.type == "buy")
+          {
             List res = await Provider.of<DatabaseService>(context, listen: false).addPurchase(widget.brand, widget.product, widget.email,
                 widget.number, widget.price.toString(), _reference);
 
@@ -511,9 +514,7 @@ class _PaystackPayState extends State<PaystackPay>
             else
             {
               _showErrorDialog(map['msg'], map['status']);
-              if(mounted){
 
-              }
             }
 
 
