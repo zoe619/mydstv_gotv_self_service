@@ -17,7 +17,7 @@ class NavDrawer extends StatelessWidget
   _dialPhone() async
   {
 
-    String phone = "08033169636";
+    String phone = "08099926467";
 
     String number = "tel:"+phone;
     launch(number);
@@ -27,7 +27,7 @@ class NavDrawer extends StatelessWidget
     }
     else{
 
-      phone = "08099926467";
+      phone = "09081867279";
       String number = "tel:"+phone;
       launch(number);
       if (await canLaunch(number))
@@ -46,7 +46,8 @@ class NavDrawer extends StatelessWidget
 
 //    String phone = "08033169636";
     String message = "type a message";
-    List<String> recipients = ["08033169636", "08099926467"];
+    List<String> recipients = ["09081867279", "08099926467"];
+
 
     String _result = await sendSMS(message: message, recipients: recipients)
         .catchError((onError) {
@@ -71,7 +72,7 @@ class NavDrawer extends StatelessWidget
               child: Center(
 
                 child: Text(
-                  'mydstv gotv self support',
+                  'MyDStv GOtv Self Support',
                   style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
               ),
@@ -125,7 +126,7 @@ class NavDrawer extends StatelessWidget
           ),
           ListTile(
             leading: Icon(Icons.history),
-            title: Text('Transaction history'),
+            title: Text('Transaction History'),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (_)=>Trans(),
@@ -143,13 +144,13 @@ class NavDrawer extends StatelessWidget
           ),
           ListTile(
             leading: Icon(Icons.call),
-            title: Text('Call customer care'),
+            title: Text('Call Customer Care'),
             onTap: () => _dialPhone(),
           ),
 
           ListTile(
             leading: Icon(Icons.message),
-            title: Text('Message customer care'),
+            title: Text('Message Customer Care'),
             onTap: () =>_sendSMS(),
           ),
 

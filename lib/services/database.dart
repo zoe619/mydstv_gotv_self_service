@@ -282,6 +282,44 @@ class DatabaseService
 
   }
 
+  Future<List<Bouquet>> getBouquetPerBrand(String brand)async
+  {
+
+    var map = Map<String, dynamic>();
+    map['table'] = "bouquet_fresh";
+    map['brand'] = brand;
+
+
+    try{
+
+      String url = "https://mydstvgotvforselfservice.com/new_mobile/pizza/getItemPerBrand.php";
+      http.Response response = await http.post(Uri.encodeFull(url), body: map, headers: {"Accept": "application/json"});
+
+      if(response.statusCode == 200)
+      {
+
+        print('from server: '+response.body);
+        List<Bouquet> list = parseResponseBouquetPerBrand(response.body);
+        return list;
+      }
+      else{
+        return  List<Bouquet>();
+      }
+
+    }
+    catch(err){
+      return List<Bouquet>();
+    }
+  }
+
+  List<Bouquet> parseResponseBouquetPerBrand(String responseBody)
+  {
+    final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+    return parsed.map<Bouquet>((json)=> Bouquet.fromJson(json)).toList();
+
+  }
+
+
   Future<List<ErrorCode>> getError()async
   {
 

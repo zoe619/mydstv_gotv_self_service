@@ -20,7 +20,7 @@ final _activity2 = Activity(
 );
 final _activity3 = Activity(
   imageUrl: 'assets/images/request.jpg',
-  name: 'Request Installation',
+  name: 'Request Service',
   address: 'here to serve you',
 );
 

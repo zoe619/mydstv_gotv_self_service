@@ -42,14 +42,26 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   _dialPhone() async
   {
 
-    String phone = "08033169636";
+    String phone = "09081867279";
 
     String number = "tel:"+phone;
     launch(number);
-    if (await canLaunch(number)) {
+    if (await canLaunch(number))
+    {
       await launch(number);
-    } else {
-      throw 'Could not place a call to $number';
+    }
+    else{
+
+      phone = "08099926467";
+      String number = "tel:"+phone;
+      launch(number);
+      if (await canLaunch(number))
+      {
+        await launch(number);
+      }
+      else{
+        throw 'Could not place a call to $number';
+      }
     }
 
   }
@@ -57,9 +69,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   void _sendSMS() async
   {
 
-    String phone = "08033169636";
+//    String phone = "08033169636";
     String message = "type a message";
-    List<String> recipients = [phone];
+    List<String> recipients = ["09081867279", "08099926467"];
 
     String _result = await sendSMS(message: message, recipients: recipients)
         .catchError((onError) {

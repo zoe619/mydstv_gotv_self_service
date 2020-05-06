@@ -37,6 +37,7 @@ class _SubscribeState extends State<Subscribe>
   String _bouq;
   int _price;
   int _startPrice;
+  int service_fee;
   String _email;
   bool _isLoading = false;
   final _subscribeFormKey = GlobalKey<FormState>();
@@ -44,9 +45,10 @@ class _SubscribeState extends State<Subscribe>
 
   List<Bouquet>_bouquets;
   List<Bouquet>_bouquetsP;
+  List<Bouquet> _bouqs;
   Bouquet _singleBouquet;
 
-  List<String> _packages = ["Dstv", "Gotv"];
+  List<String> _packages = ["DStv", "GOtv"];
   List<String> _months = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"];
   var publicKey = '[]';
 
@@ -72,6 +74,21 @@ class _SubscribeState extends State<Subscribe>
       _email = user.email;
     });
 
+  }
+
+  _getItemsPerBrand(String brand){
+
+    Provider.of<DatabaseService>(context, listen: false).getBouquetPerBrand(brand)
+        .then((items)
+    {
+
+      setState(()
+      {
+        _bouq = null;
+        _bouqs = items;
+
+      });
+    });
   }
 
   _getItems()async
@@ -104,7 +121,7 @@ class _SubscribeState extends State<Subscribe>
   _dialPhone() async
   {
 
-    String phone = "08033169636";
+    String phone = "09081867279";
 
     String number = "tel:"+phone;
     launch(number);
@@ -133,7 +150,7 @@ class _SubscribeState extends State<Subscribe>
 
 //    String phone = "08033169636";
     String message = "type a message";
-    List<String> recipients = ["08033169636", "08099926467"];
+    List<String> recipients = ["09081867279", "08099926467"];
 
     String _result = await sendSMS(message: message, recipients: recipients)
         .catchError((onError) {
@@ -188,7 +205,18 @@ class _SubscribeState extends State<Subscribe>
         {
           _startPrice = int.parse(b.price);
           _price = _startPrice;
-          _showPrice(_price);
+          if(_price <= 4000){
+            service_fee = 100;
+          }
+          else if(_price > 4000 && _price <= 10000)
+          {
+            service_fee = 150;
+          }
+          else{
+           _price = 200;
+          }
+
+          _showPrice(_price, service_fee);
           
         }
      });
@@ -203,10 +231,11 @@ class _SubscribeState extends State<Subscribe>
         children: <Widget>[
           _buildIUCTF(),
           _buildPlanTF(),
-          _bouquets != null ?
+          _plan != null ?
+          _bouqs != null ?
           _buildBouquetTF() : Platform.isIOS
-              ? new CupertinoActivityIndicator() : CircularProgressIndicator(),
-          _buildMonthsTF(),
+              ? new CupertinoActivityIndicator() : CircularProgressIndicator() : SizedBox.shrink(),
+          _bouq != "Gotv Lite / Annually" && _bouq != "Gotv Lite / Quarterly" ?  _buildMonthsTF() : SizedBox.shrink(),
         ],
       ),
 
@@ -220,9 +249,9 @@ class _SubscribeState extends State<Subscribe>
           horizontal: 30.0,
           vertical: 10.0),
       child: TextFormField(
-        decoration: const InputDecoration(labelText: 'IUC number'),
+        decoration: const InputDecoration(labelText: 'IUC Number'),
         validator: (input)=>
-        input.trim().isEmpty  ? 'IUC number can\'t be empty' : null,
+        input.trim().isEmpty  ? 'IUC Number Can\'t Be Empty' : null,
         onSaved: (input)=>_iuc = input.trim(),
 
       ),
@@ -254,19 +283,22 @@ class _SubscribeState extends State<Subscribe>
         }).toList(),
         style: TextStyle(fontSize: 20.0),
         decoration: InputDecoration(
-            labelText: 'brand',
+            labelText: 'Brand',
             labelStyle: TextStyle(fontSize: 18.0),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
             )
         ),
         validator: (input)=>_plan == null
-            ? "Please select a brand"
+            ? "Please Select A Brand"
             : null,
         onChanged: (value)
         {
-          setState(() {
+          setState(()
+          {
+            _bouqs = null;
             _plan = value;
+            _getItemsPerBrand(_plan);
 
 
           });
@@ -290,7 +322,7 @@ class _SubscribeState extends State<Subscribe>
         icon: Icon(Icons.arrow_drop_down_circle),
         iconSize: 15.0,
         iconEnabledColor: Theme.of(context).primaryColor,
-        items: _bouquets.map((Bouquet bouquet)
+        items: _bouqs.map((Bouquet bouquet)
         {
 
           return DropdownMenuItem(
@@ -307,22 +339,46 @@ class _SubscribeState extends State<Subscribe>
         }).toList(),
         style: TextStyle(fontSize: 15.0),
         decoration: InputDecoration(
-            labelText: 'package',
+            labelText: 'Package',
             labelStyle: TextStyle(fontSize: 15.0),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
             )
         ),
         validator: (input)=>_bouq == null
-            ? "Please select a package"
+            ? "Please Select A Package"
             : null,
         onChanged: (value)
         {
           setState(() {
             _bouq = value;
           });
+          if(_bouq == "Gotv Lite / Quarterly")
+          {
+            setState(() {
+              _months = ["4"];
+              _month = "4";
+              _getPrice(_bouq);
 
-          _getPrice(_bouq);
+
+            });
+          }
+          else if(_bouq == "Gotv Lite / Annually"){
+
+            setState(() {
+              _months = ["12"];
+              _month = "12";
+              _getPrice(_bouq);
+
+            });
+          }
+          else
+            {
+              setState(() {
+                _months = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"];
+              });
+            _getPrice(_bouq);
+          }
 
 
         },
@@ -334,7 +390,7 @@ class _SubscribeState extends State<Subscribe>
 
 
 
-   _showPrice(int price)
+   _showPrice(int price, int service)
    {
 
     return Padding(
@@ -343,10 +399,20 @@ class _SubscribeState extends State<Subscribe>
             vertical: 10.0),
       child: Container(
 
-        child: Center(child: Text("Total amount: " + "NGN" +price.toString(), style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 16.0,
-        ),),
+
+        child: Column(
+          children: <Widget>[
+            Center(child: Text("Total Amount: " + "NGN" +price.toString(), style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16.0,
+            ),),
+            ),
+            Center(child: Text("Service Fee: " + "NGN" +service.toString(), style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 8.0,
+            ),),
+            ),
+          ],
         ),
       ),
     );
@@ -377,14 +443,14 @@ class _SubscribeState extends State<Subscribe>
         }).toList(),
         style: TextStyle(fontSize: 20.0),
         decoration: InputDecoration(
-            labelText: 'month',
+            labelText: 'Month',
             labelStyle: TextStyle(fontSize: 18.0),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
             )
         ),
         validator: (input)=>_month == null
-            ? "Please select month"
+            ? "Please Select Month"
             : null,
         onChanged: (value)
         {
@@ -397,7 +463,18 @@ class _SubscribeState extends State<Subscribe>
 
 
           });
-          _showPrice(_price);
+          if(_price <= 4000){
+            service_fee = 100;
+          }
+          else if(_price > 4000 && _price <= 10000)
+          {
+            service_fee = 150;
+          }
+          else{
+            service_fee = 200;
+          }
+
+          _showPrice(_price, service_fee);
 
         },
         value: _month != null ? _month : null,
@@ -520,7 +597,7 @@ class _SubscribeState extends State<Subscribe>
       drawer: NavDrawer(),
       appBar: AppBar(
         title: Center(child:
-        Text('subscribe', style: TextStyle(
+        Text('Subscribe', style: TextStyle(
           color: Colors.white,
           fontSize: 32.0,
         ),)),
@@ -554,7 +631,7 @@ class _SubscribeState extends State<Subscribe>
 
           ),
            Welcome(),
-           _price == null ? SizedBox.shrink() : _showPrice(_price),
+           _price == null ? SizedBox.shrink() : _showPrice(_price, service_fee),
           _buildSubscribeForm(),
           const SizedBox(height: 20.0),
           Padding(
@@ -564,7 +641,7 @@ class _SubscribeState extends State<Subscribe>
               child: Platform.isIOS ? CupertinoButton(
                   color: Theme.of(context).primaryColor,
                   child: Text(
-                    'Proceed to payment', style: TextStyle(
+                    'Proceed To Payment', style: TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,
 
@@ -578,7 +655,7 @@ class _SubscribeState extends State<Subscribe>
                   ),
                   color: Theme.of(context).primaryColor,
                   child: Text(
-                    'Proceed to payment', style: TextStyle(
+                    'Proceed To Payment', style: TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,
 

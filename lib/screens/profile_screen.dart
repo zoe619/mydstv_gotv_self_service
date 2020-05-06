@@ -42,7 +42,7 @@ class _ProfileScreenState extends State<ProfileScreen>
   _dialPhone() async
   {
 
-    String phone = "08033169636";
+    String phone = "09081867279";
 
     String number = "tel:"+phone;
     launch(number);
@@ -71,7 +71,7 @@ class _ProfileScreenState extends State<ProfileScreen>
 
 //    String phone = "08033169636";
     String message = "type a message";
-    List<String> recipients = ["08033169636", "08099926467"];
+    List<String> recipients = ["09081867279", "08099926467"];
 
     String _result = await sendSMS(message: message, recipients: recipients)
         .catchError((onError) {

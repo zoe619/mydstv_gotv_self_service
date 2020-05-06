@@ -94,7 +94,7 @@ class _WelcomeState extends State<Welcome>
                         ),
                         SizedBox(height: 15.0),
                         Flexible(
-                          child: Text("Customer care: 08033169636, 08099926467", style: TextStyle(
+                          child: Text("Customer Care: 09081867279; 08099926467", style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 10.0,
                             color: Theme.of(context).primaryColor

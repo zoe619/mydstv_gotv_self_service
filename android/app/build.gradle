@@ -13,9 +13,9 @@ if (flutterRoot == null) {
 def multidex_version = "2.0.1"
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
-if (flutterVersionCode == null)
+if (flutterVersionCode == '1')
 {
-    flutterVersionCode = '1'
+    flutterVersionCode = '2'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')

@@ -36,8 +36,8 @@ class _RequestInstallationState extends State<RequestInstallation>
   String _email;
 
   String _selected;
-  List<String> _packages = ["Dstv", "Gotv"];
-  List<String> _services = ["installation", "subscribe", "repairs", "maintenance"];
+  List<String> _packages = ["DStv", "GOtv"];
+  List<String> _services = ["Installation", "Repairs", "Maintenance"];
   String _brand;
   String _service;
   String _address;
@@ -66,7 +66,7 @@ class _RequestInstallationState extends State<RequestInstallation>
   _dialPhone() async
   {
 
-    String phone = "08033169636";
+    String phone = "09081867279";
 
     String number = "tel:"+phone;
     launch(number);
@@ -95,7 +95,7 @@ class _RequestInstallationState extends State<RequestInstallation>
 
 //    String phone = "08033169636";
     String message = "type a message";
-    List<String> recipients = ["08033169636", "08099926467"];
+    List<String> recipients = ["09081867279", "08099926467"];
 
     String _result = await sendSMS(message: message, recipients: recipients)
         .catchError((onError) {

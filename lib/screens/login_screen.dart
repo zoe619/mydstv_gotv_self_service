@@ -277,7 +277,7 @@ class _LoginScreenState extends State<LoginScreen> {
         title: Padding(
           padding: const EdgeInsets.only(right: 25.0),
           child: Center(child:
-          Text('mydstv gotv self support', style: TextStyle(
+          Text('MyDStv GOtv Self Support', style: TextStyle(
             color: Colors.white,
             fontSize: 20.0,
           ),)),

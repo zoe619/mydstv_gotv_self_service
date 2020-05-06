@@ -41,6 +41,7 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
   String _product;
   String _brand;
   String _email;
+  int service;
 
 
   final _purchaseFormKey = GlobalKey<FormState>();
@@ -56,6 +57,20 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
     _brand = widget.products.brand;
     _product = widget.products.name;
     getUserData();
+
+    if(_price <= 4000){
+      service = 100;
+    }
+    else if(_price > 4000 && _price <= 10000)
+    {
+      service = 150;
+    }
+    else
+      {
+      service = 200;
+    }
+
+    _number = "1";
 
   }
 
@@ -73,7 +88,7 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
   _dialPhone() async
   {
 
-    String phone = "08033169636";
+    String phone = "09081867279";
 
     String number = "tel:"+phone;
     launch(number);
@@ -102,7 +117,7 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
 
 //    String phone = "08033169636";
     String message = "type a message";
-    List<String> recipients = ["08033169636", "08099926467"];
+    List<String> recipients = ["09081867279", "08099926467"];
 
     String _result = await sendSMS(message: message, recipients: recipients)
         .catchError((onError) {
@@ -167,12 +182,12 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: 30.0,
-          vertical: 10.0),
+          vertical: 5.0),
 
       child: DropdownButtonFormField(
         isDense: true,
         icon: Icon(Icons.arrow_drop_down_circle),
-        iconSize: 20.0,
+        iconSize: 15.0,
         iconEnabledColor: Theme.of(context).primaryColor,
         items: _quantity.map((String quantity){
           return DropdownMenuItem
@@ -181,13 +196,13 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
             child: Text(
               quantity, style: TextStyle(
                 color: Colors.black,
-                fontSize: 15.0
+                fontSize: 10.0
             ),
             ),
 
           );
         }).toList(),
-        style: TextStyle(fontSize: 20.0),
+        style: TextStyle(fontSize: 15.0),
         decoration: InputDecoration(
             labelText: 'select quantity',
             labelStyle: TextStyle(fontSize: 18.0),
@@ -196,7 +211,7 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
             )
         ),
         validator: (input)=>_number == null
-            ? "Please select quantity"
+            ? "please select quantity"
             : null,
         onChanged: (value)
         {
@@ -205,14 +220,19 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
             _number = value;
             _price = int.parse(widget.products.price);
             _price = _price * int.parse(_number);
-//             if(_number == "1")
-//             {
-//               _price = int.parse(widget.products.price);
-//
-//             }
-//             else{
-//               _price = _price * int.parse(_number);
-//             }
+
+            if(_price <= 4000){
+              service = 100;
+            }
+            else if(_price > 4000 && _price <= 10000)
+            {
+              service = 150;
+            }
+            else
+            {
+              service = 200;
+            }
+            _showPrice(service);
 
           });
 
@@ -227,7 +247,28 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
 
 
 
+  _showPrice(int service)
+  {
 
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: 10.0,
+          vertical: 0.0),
+      child: Container(
+
+        child: Column(
+          children: <Widget>[
+
+            Center(child: Text("Service Fee: " + "NGN" +service.toString(), style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 10.0,
+            ),),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
   _submit() async {
     if (!_purchaseFormKey.currentState.validate())
     {
@@ -423,24 +464,24 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
                       ],
                     ),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text('Plus:', style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.w600
-                        ),),
-                        Text(widget.products.plus, style: TextStyle(
-                          fontSize: 22.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-
-                      ],
-                    ),
+//                    Row(
+//                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                      children: <Widget>[
+//                        Text('Plus:', style: TextStyle(
+//                            fontSize: 18.0,
+//                            fontWeight: FontWeight.w600
+//                        ),),
+//                        Text(widget.products.plus, style: TextStyle(
+//                          fontSize: 22.0,
+//                          fontWeight: FontWeight.bold,
+//                        ),
+//                          softWrap: true,
+//                          overflow: TextOverflow.ellipsis,
+//                          maxLines: 1,
+//                        ),
+//
+//                      ],
+//                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -459,25 +500,25 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
 
                       ],
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text('Promo:', style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.w600
-                        ),
-                        ),
-                        Text(widget.products.promo, style: TextStyle(
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-
-                      ],
-                    ),
+//                    Row(
+//                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                      children: <Widget>[
+//                        Text('Promo:', style: TextStyle(
+//                            fontSize: 18.0,
+//                            fontWeight: FontWeight.w600
+//                        ),
+//                        ),
+//                        Text(widget.products.promo, style: TextStyle(
+//                          fontSize: 15.0,
+//                          fontWeight: FontWeight.bold,
+//                        ),
+//                          softWrap: true,
+//                          overflow: TextOverflow.ellipsis,
+//                          maxLines: 1,
+//                        ),
+//
+//                      ],
+//                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -500,7 +541,7 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
 
                       ],
                     ),
-
+                    _showPrice(service),
                   ],
                 ),
 
@@ -561,7 +602,7 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
                   ? new CupertinoButton(
                   color: Theme.of(context).primaryColor,
                   child: Text(
-                    'Proceed to payment', style: TextStyle(
+                    'Proceed To Payment', style: TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,
 
@@ -575,7 +616,7 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
                   ),
                   color: Theme.of(context).primaryColor,
                   child: Text(
-                    'Proceed to payment', style: TextStyle(
+                    'Proceed To Payment', style: TextStyle(
                     color: Colors.white,
                     fontSize: 20.0,
 

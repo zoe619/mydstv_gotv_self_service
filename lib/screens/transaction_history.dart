@@ -67,7 +67,7 @@ class _TransactionState extends State<Transaction>
   _dialPhone() async
   {
 
-    String phone = "08033169636";
+    String phone = "09081867279";
 
     String number = "tel:"+phone;
     launch(number);
@@ -82,7 +82,7 @@ class _TransactionState extends State<Transaction>
   void _sendSMS() async
   {
 
-    String phone = "08033169636";
+    String phone = "09081867279";
     String message = "type a message";
     List<String> recipients = [phone];
 

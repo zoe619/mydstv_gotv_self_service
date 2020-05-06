@@ -56,7 +56,7 @@ class _ChannelState extends State<Channel>
   _dialPhone() async
   {
 
-    String phone = "08033169636";
+    String phone = "09081867279";
 
     String number = "tel:"+phone;
     launch(number);
@@ -85,7 +85,7 @@ class _ChannelState extends State<Channel>
 
 //    String phone = "08033169636";
     String message = "type a message";
-    List<String> recipients = ["08033169636", "08099926467"];
+    List<String> recipients = ["09081867279", "08099926467"];
 
     String _result = await sendSMS(message: message, recipients: recipients)
         .catchError((onError) {
@@ -188,7 +188,7 @@ class _ChannelState extends State<Channel>
       drawer: NavDrawer(),
       appBar: AppBar(
         title: Center(child:
-        Text('Channels list', style: TextStyle(
+        Text('Channel Lists', style: TextStyle(
           color: Colors.white,
           fontSize: 32.0,
         ),)),
@@ -229,7 +229,7 @@ class _ChannelState extends State<Channel>
                     Padding(
                       padding: EdgeInsets.all(20.0),
                       child: Center(
-                        child: Text('Channels list', style: TextStyle(
+                        child: Text('Channel Lists', style: TextStyle(
                           fontSize: 24.0,
                           fontWeight: FontWeight.w600,
                           letterSpacing: 1.2,
