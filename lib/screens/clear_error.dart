@@ -172,9 +172,13 @@ class _ClearErrorState extends State<ClearError>
           horizontal: 30.0,
           vertical: 10.0),
       child: TextFormField(
-        decoration: const InputDecoration(labelText: 'IUC/SMS number'),
+        keyboardType: TextInputType.number,
+        inputFormatters: <TextInputFormatter>[
+          WhitelistingTextInputFormatter.digitsOnly
+        ],
+        decoration: const InputDecoration(labelText: 'Smart Card/IUC Number'),
         validator: (input)=>
-        input.trim().isEmpty  ? 'IUC number can\'t be empty' : null,
+        input.trim().isEmpty  ? 'Smart Card/IUC Number can\'t be empty' : null,
         onSaved: (input)=>_iuc = input.trim(),
 
       ),

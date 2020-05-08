@@ -229,7 +229,7 @@ class _HomeScreenState extends State<HomeScreen>
                     {
                       return ClearError();
                     }
-                    else if(activity.name == "Request Installation")
+                    else if(activity.name == "Request Service")
                     {
                       return RequestInstallation();
                     }

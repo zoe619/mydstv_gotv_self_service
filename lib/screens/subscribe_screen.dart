@@ -249,9 +249,13 @@ class _SubscribeState extends State<Subscribe>
           horizontal: 30.0,
           vertical: 10.0),
       child: TextFormField(
-        decoration: const InputDecoration(labelText: 'IUC Number'),
+        keyboardType: TextInputType.number,
+        inputFormatters: <TextInputFormatter>[
+          WhitelistingTextInputFormatter.digitsOnly
+        ],
+        decoration: const InputDecoration(labelText: 'Smart Card/IUC Number'),
         validator: (input)=>
-        input.trim().isEmpty  ? 'IUC Number Can\'t Be Empty' : null,
+        input.trim().isEmpty  ? 'Smart Card/IUC Number Can\'t Be Empty' : null,
         onSaved: (input)=>_iuc = input.trim(),
 
       ),

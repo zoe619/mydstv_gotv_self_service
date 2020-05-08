@@ -33,7 +33,7 @@ exports.messageTrigger = functions.firestore.document('Messages/{messageId}').on
      newData = snapshot.data();
 
      var payload = {
-        notification: {title: 'Micgrand Inc', body: 'notification', sound: 'default'},
+        notification: {title: 'Micgrand Resources Limited', body: 'Notification', sound: 'default'},
         data: {
         click_action: 'FLUTTER_NOTIFICATION_CLICK',
         message: newData.message,

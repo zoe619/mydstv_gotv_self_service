@@ -70,7 +70,7 @@ class _PaystackPayState extends State<PaystackPay>
 
     }
     else{
-      amount = amount = int.parse(widget.price) + 200;
+      amount = int.parse(widget.price) + 200;
     }
     _radioValue = 1;
 //    _fetchAccessCodeFrmServer2();
@@ -417,6 +417,7 @@ class _PaystackPayState extends State<PaystackPay>
 
   _handleCheckout(BuildContext context) async
   {
+
 
     if (_method == null)
     {
@@ -838,9 +839,10 @@ class _PaystackPayState extends State<PaystackPay>
 
   Future<String> _fetchAccessCodeFrmServer(String reference) async
   {
+    int amounts = amount * 100;
     var map = Map<String, dynamic>();
     map['email'] = widget.email;
-    map['amount'] = amount.toString();
+    map['amount'] = amounts.toString();
     String url = 'https://mydstvgotvforselfservice.com/new_mobile/pizza/initialize.php';
     String accessCode;
     try

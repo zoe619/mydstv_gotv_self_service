@@ -298,7 +298,7 @@ class DatabaseService
       if(response.statusCode == 200)
       {
 
-        print('from server: '+response.body);
+
         List<Bouquet> list = parseResponseBouquetPerBrand(response.body);
         return list;
       }
