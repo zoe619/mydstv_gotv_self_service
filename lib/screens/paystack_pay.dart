@@ -463,11 +463,11 @@ class _PaystackPayState extends State<PaystackPay>
         fullscreen: false,
         logo: MyLogo(),
       );
-      print('Response = $response');
+
       setState(() => _inProgress = false);
       _updateStatus(response.reference, '$response');
 
-      bool resp = await _verifyOnServer(_reference);
+      bool resp = await _verifyOnServer(response.reference);
       if(resp)
       {
 
@@ -859,6 +859,7 @@ class _PaystackPayState extends State<PaystackPay>
 
       }
       accessCode = maps['code'];
+      print(accessCode);
 
 
     } catch (e) {
@@ -922,7 +923,6 @@ class _PaystackPayState extends State<PaystackPay>
     {
       http.Response response = await http.post(Uri.encodeFull(url), body: map, headers: {"Accept": "application/json"});
       result = json.decode(response.body);
-//      _updateStatus(reference, body);
       print(result);
       Map<String, dynamic> maps;
 
