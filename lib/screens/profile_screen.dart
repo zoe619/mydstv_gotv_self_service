@@ -69,7 +69,7 @@ class _ProfileScreenState extends State<ProfileScreen>
   void _sendSMS() async
   {
 
-//    String phone = "08033169636";
+//    String phone = "08033169636";https://duo.google.com/
     String message = "type a message";
     List<String> recipients = ["09081867279", "08099926467"];
 

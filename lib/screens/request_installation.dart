@@ -272,6 +272,8 @@ class _RequestInstallationState extends State<RequestInstallation>
   }
 
   _submit() async {
+
+    setState(() => _isLoading = false);
     if (!_installationFormKey.currentState.validate())
     {
       SizedBox.shrink();
@@ -280,7 +282,7 @@ class _RequestInstallationState extends State<RequestInstallation>
     else if (_isLoading == false)
     {
       _scaffoldKey.currentState.showSnackBar(
-          new SnackBar(duration: new Duration(seconds: 5),
+          new SnackBar(duration: new Duration(seconds: 60),
             content:
             new Row(
               children: <Widget>[
@@ -288,6 +290,9 @@ class _RequestInstallationState extends State<RequestInstallation>
                 new Text("please wait...")
               ],
             ),
+            action: new SnackBarAction(
+                label: 'OK',
+                onPressed: () => _scaffoldKey.currentState.removeCurrentSnackBar()),
           ));
 
 

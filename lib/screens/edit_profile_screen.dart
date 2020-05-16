@@ -151,13 +151,14 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   _submit() async
   {
 
+    setState(()=> _isLoading = false);
     if(!_formKey.currentState.validate()){
       SizedBox.shrink();
     }
     else if(_isLoading == false)
     {
       _scaffoldKey.currentState.showSnackBar(
-          new SnackBar(duration: new Duration(seconds: 5),
+          new SnackBar(duration: new Duration(seconds: 60),
             content:
             new Row(
               children: <Widget>[
@@ -165,7 +166,11 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                 new Text("please wait...")
               ],
             ),
+            action: new SnackBarAction(
+                label: 'OK',
+                onPressed: () => _scaffoldKey.currentState.removeCurrentSnackBar()),
           ));
+
     }
     try
     {
@@ -198,7 +203,8 @@ class _EditProfileScreenState extends State<EditProfileScreen>
           );
 
           DatabaseService.updateUserFirebase(user);
-          Navigator.pop(context);
+          _showErrorDialog("Profile Updated");
+//          Navigator.pop(context);
 
 
             setState(() {

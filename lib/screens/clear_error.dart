@@ -236,6 +236,7 @@ class _ClearErrorState extends State<ClearError>
 
 
   _submit() async {
+    setState(() => _isLoading = false);
     if (!_errorFormKey.currentState.validate())
     {
       SizedBox.shrink();
@@ -244,7 +245,7 @@ class _ClearErrorState extends State<ClearError>
     else if (_isLoading == false)
     {
       _scaffoldKey.currentState.showSnackBar(
-          new SnackBar(duration: new Duration(seconds: 5),
+          new SnackBar(duration: new Duration(seconds: 60),
             content:
             new Row(
               children: <Widget>[
@@ -253,6 +254,9 @@ class _ClearErrorState extends State<ClearError>
                 new Text("please wait...")
               ],
             ),
+            action: new SnackBarAction(
+                label: 'OK',
+                onPressed: () => _scaffoldKey.currentState.removeCurrentSnackBar()),
           ));
 
 

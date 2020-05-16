@@ -120,6 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
   _submit() async
   {
 
+    setState(() => _isLoading = false);
 
     if(_selectedIndex == 0 && !_loginFormKey.currentState.validate())
     {
@@ -132,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
     else if(_isLoading == false)
     {
       _scaffoldKey.currentState.showSnackBar(
-          new SnackBar(duration: new Duration(seconds: 5),
+          new SnackBar(duration: new Duration(seconds: 60),
             content:
             new Row(
               children: <Widget>[
@@ -141,6 +142,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 new Text("please wait...")
               ],
             ),
+            action: new SnackBarAction(
+                label: 'OK',
+                onPressed: () => _scaffoldKey.currentState.removeCurrentSnackBar()),
           ));
 
 
@@ -194,8 +198,6 @@ class _LoginScreenState extends State<LoginScreen> {
         else
         {
           await authService.signUp(_name, _email, _password, _phone);
-          _showErrorDialog2("An email verification link has been sent to your mail", "success");
-
 
             setState(() {
               _isLoading = true;

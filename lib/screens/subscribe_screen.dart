@@ -66,7 +66,6 @@ class _SubscribeState extends State<Subscribe>
   }
 
 
-
   getUserData() async{
     User user = await Provider.of<DatabaseService>(context, listen: false).getUserWithId(_userId);
     setState(() {
