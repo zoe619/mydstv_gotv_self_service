@@ -15,7 +15,7 @@ def multidex_version = "2.0.1"
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == '1')
 {
-    flutterVersionCode = '4'
+    flutterVersionCode = '1'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
@@ -48,7 +48,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.zoe.mydstv"
+        applicationId "com.zoe.mydstvone"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()

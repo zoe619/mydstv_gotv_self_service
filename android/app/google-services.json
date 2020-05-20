@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:168922811752:android:16445b02d58e99d8881add",
         "android_client_info": {
-          "package_name": "com.zoe.mydstv"
+          "package_name": "com.zoe.mydstvone"
         }
       },
       "oauth_client": [
@@ -35,7 +35,7 @@
               "client_id": "168922811752-o3n9sb04gm8383qqir9n1s6aehq1sv0g.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.zoe.mydstv"
+                "bundle_id": "com.zoe.mydstvone"
               }
             }
           ]
