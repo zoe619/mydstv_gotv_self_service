@@ -131,7 +131,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
         context: context,
         builder: (_){
           return AlertDialog(
-            title: Text('Error'),
+            title: Text('Response'),
             content: Text(errMessage),
             actions: <Widget>[
               Platform.isIOS

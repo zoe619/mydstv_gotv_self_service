@@ -730,7 +730,7 @@ class _PaystackPayState extends State<PaystackPay>
               map = res[i];
 
             }
-            if(map['status'] == "fail")
+            if(map['status'] == "Fail")
             {
               _showErrorDialog(map['msg'], map['status']);
             }
@@ -753,7 +753,7 @@ class _PaystackPayState extends State<PaystackPay>
 
             }
 
-            if(map['status'] == "fail")
+            if(map['status'] == "Fail")
             {
               _showErrorDialog(map['msg'], map['status']);
             }

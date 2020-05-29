@@ -318,7 +318,7 @@ class _RequestInstallationState extends State<RequestInstallation>
 
         }
 
-        if(map['status'] == "fail")
+        if(map['status'] == "Fail")
         {
           _showErrorDialog(map['msg'], map['status']);
           setState(() => _isLoading = true);

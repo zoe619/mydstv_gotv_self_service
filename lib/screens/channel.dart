@@ -142,15 +142,7 @@ class _ChannelState extends State<Channel>
         child: DataTable(
           columns: [
 
-            DataColumn(
-              label: Text("S/N"),
-            ),
-            DataColumn(
-              label: Text("BRAND"),
-            ),
-            DataColumn(
-              label: Text("PACKAGE"),
-            ),
+
             DataColumn(
               label: Text("CHANNEL"),
             ),
@@ -164,9 +156,6 @@ class _ChannelState extends State<Channel>
 
               cells: [
 
-                DataCell(Text(chan.id.toString())),
-                DataCell(Text(chan.brand.toUpperCase())),
-                DataCell(Text(chan.package.toUpperCase())),
                 DataCell(Text(chan.channel.toUpperCase())),
                 DataCell(Text(chan.channel_number)),
 
@@ -229,7 +218,7 @@ class _ChannelState extends State<Channel>
                     Padding(
                       padding: EdgeInsets.all(20.0),
                       child: Center(
-                        child: Text('Channel Lists', style: TextStyle(
+                        child: Text('Channels Lists', style: TextStyle(
                           fontSize: 24.0,
                           fontWeight: FontWeight.w600,
                           letterSpacing: 1.2,

@@ -464,61 +464,7 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
                       ],
                     ),
 
-//                    Row(
-//                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                      children: <Widget>[
-//                        Text('Plus:', style: TextStyle(
-//                            fontSize: 18.0,
-//                            fontWeight: FontWeight.w600
-//                        ),),
-//                        Text(widget.products.plus, style: TextStyle(
-//                          fontSize: 22.0,
-//                          fontWeight: FontWeight.bold,
-//                        ),
-//                          softWrap: true,
-//                          overflow: TextOverflow.ellipsis,
-//                          maxLines: 1,
-//                        ),
-//
-//                      ],
-//                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text('Install:', style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.w600
-                        ),),
-                        Text(widget.products.install, style: TextStyle(
-                          fontSize: 22.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
 
-                      ],
-                    ),
-//                    Row(
-//                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                      children: <Widget>[
-//                        Text('Promo:', style: TextStyle(
-//                            fontSize: 18.0,
-//                            fontWeight: FontWeight.w600
-//                        ),
-//                        ),
-//                        Text(widget.products.promo, style: TextStyle(
-//                          fontSize: 15.0,
-//                          fontWeight: FontWeight.bold,
-//                        ),
-//                          softWrap: true,
-//                          overflow: TextOverflow.ellipsis,
-//                          maxLines: 1,
-//                        ),
-//
-//                      ],
-//                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -530,14 +476,14 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                         ),
-                        widget.products.discount != null ? Text("NGN"+widget.products.discount, style: TextStyle(
+                        widget.products.discount == null ? 'N/A' : Text(widget.products.discount, style: TextStyle(
                           fontSize: 22.0,
                           fontWeight: FontWeight.bold,
                         ),
                           softWrap: true,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
-                        ) : "nill",
+                        ),
 
                       ],
                     ),

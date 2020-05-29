@@ -158,7 +158,7 @@ class _BouquetState extends State<Bouquet>
                   ClipRRect(
                     borderRadius: BorderRadius.circular(15.0),
                     child: Image(
-                      height: 150.0,
+                      height: 120.0,
                       width: 150.0,
                       image: AssetImage("assets/images/click3.jpeg"),
                       fit: BoxFit.cover,

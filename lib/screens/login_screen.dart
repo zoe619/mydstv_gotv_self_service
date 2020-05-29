@@ -91,9 +91,9 @@ class _LoginScreenState extends State<LoginScreen> {
           horizontal: 30.0,
           vertical: 10.0),
       child: TextFormField(
-        decoration: const InputDecoration(labelText: 'phone number'),
+        decoration: const InputDecoration(labelText: 'Phone Number'),
         validator: (input)=>
-        input.trim().isEmpty  ? 'phone can\'t be empty' : null,
+        input.trim().isEmpty  ? 'Phone Can\'t Be Empty' : null,
         onSaved: (input)=>_phone = input.trim(),
 
       ),
@@ -172,7 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ));
         }
         else{
-          _showErrorDialog("please check your email to verify your account", "error");
+          _showErrorDialog("Please Check Your Email To Verify Your Account", "error");
         }
 
       }

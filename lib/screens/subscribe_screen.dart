@@ -204,6 +204,7 @@ class _SubscribeState extends State<Subscribe>
         {
           _startPrice = int.parse(b.price);
           _price = _startPrice;
+
           if(_price <= 4000){
             service_fee = 100;
           }
@@ -212,7 +213,7 @@ class _SubscribeState extends State<Subscribe>
             service_fee = 150;
           }
           else{
-           _price = 200;
+            service_fee = 200;
           }
 
           _showPrice(_price, service_fee);
@@ -254,7 +255,8 @@ class _SubscribeState extends State<Subscribe>
         ],
         decoration: const InputDecoration(labelText: 'Smart Card/IUC Number'),
         validator: (input)=>
-        input.trim().isEmpty  ? 'Smart Card/IUC Number Can\'t Be Empty' : null,
+        input.trim().isEmpty || input.trim().length != 10 && input.trim().length != 11 ? 'Smart Card/IUC Number Must Be 10 Or 11 Digits':
+        null,
         onSaved: (input)=>_iuc = input.trim(),
 
       ),
@@ -353,7 +355,8 @@ class _SubscribeState extends State<Subscribe>
             : null,
         onChanged: (value)
         {
-          setState(() {
+          setState(()
+          {
             _bouq = value;
           });
           if(_bouq == "Gotv Lite / Quarterly")
@@ -382,6 +385,35 @@ class _SubscribeState extends State<Subscribe>
               });
             _getPrice(_bouq);
           }
+
+          setState(() {
+            if(_month == null){
+              _month = '1';
+            }
+            else{
+              _month = _month;
+            }
+          });
+          _price = _price * int.parse(_month);
+          if(_price <= 4000){
+            service_fee = 100;
+          }
+          else if(_price > 4000 && _price <= 10000)
+          {
+            service_fee = 150;
+          }
+          else{
+            service_fee = 200;
+          }
+          if(_month == '12' && _plan == "DStv")
+          {
+
+            setState(() {
+              String mon = '11';
+              _price = _startPrice * int.parse(mon);
+            });
+          }
+          _showPrice(_price, service_fee);
 
 
         },
@@ -466,7 +498,8 @@ class _SubscribeState extends State<Subscribe>
 
 
           });
-          if(_price <= 4000){
+          if(_price <= 4000)
+          {
             service_fee = 100;
           }
           else if(_price > 4000 && _price <= 10000)
@@ -476,7 +509,14 @@ class _SubscribeState extends State<Subscribe>
           else{
             service_fee = 200;
           }
+          if(_month == '12' && _plan == "DStv")
+          {
 
+            setState(() {
+              String mon = '11';
+              _price = _startPrice * int.parse(mon);
+            });
+          }
           _showPrice(_price, service_fee);
 
         },

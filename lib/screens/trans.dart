@@ -181,16 +181,10 @@ class _TransState extends State<Trans>
               label: Text("ID"),
             ),
             DataColumn(
-              label: Text("EMAIL"),
-            ),
-            DataColumn(
               label: Text("AMOUNT"),
             ),
             DataColumn(
-              label: Text("PERIOD"),
-            ),
-            DataColumn(
-              label: Text("STATUS"),
+              label: Text("DATE"),
             ),
             DataColumn(
               label: Text("TYPE"),
@@ -199,10 +193,8 @@ class _TransState extends State<Trans>
           rows: _transaction.map((trans)=>DataRow(
               cells: [
                 DataCell(Text(trans.id)),
-                DataCell(Text(trans.email.toUpperCase())),
                 DataCell(Text(trans.amount.toUpperCase())),
                 DataCell(Text(trans.period.toUpperCase())),
-                DataCell(Text(trans.status.toUpperCase())),
                 DataCell(Text(trans.type.toUpperCase()))
               ]
           )

@@ -74,7 +74,7 @@ class _WelcomeState extends State<Welcome>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Expanded(
-                          child: Text("Hi, $_name What a great day \n to be alive!", style: TextStyle(
+                          child: Text("Hi, $_name. What a great day \n to be alive!", style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 8.0,
                           ),

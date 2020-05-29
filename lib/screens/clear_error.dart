@@ -178,7 +178,8 @@ class _ClearErrorState extends State<ClearError>
         ],
         decoration: const InputDecoration(labelText: 'Smart Card/IUC Number'),
         validator: (input)=>
-        input.trim().isEmpty  ? 'Smart Card/IUC Number can\'t be empty' : null,
+        input.trim().isEmpty  || input.trim().length != 10 && input.trim().length != 11  ?  'Smart Card/IUC Number Must Be 10 Or 11 Digits' :
+        null,
         onSaved: (input)=>_iuc = input.trim(),
 
       ),
@@ -211,14 +212,14 @@ class _ClearErrorState extends State<ClearError>
         }).toList(),
         style: TextStyle(fontSize: 20.0),
         decoration: InputDecoration(
-            labelText: 'error code',
+            labelText: 'Error Code',
             labelStyle: TextStyle(fontSize: 18.0),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
             )
         ),
         validator: (input)=>_errorCode == null
-            ? "Please select error code"
+            ? "Please Select Error Code"
             : null,
         onChanged: (value)
         {
@@ -268,7 +269,6 @@ class _ClearErrorState extends State<ClearError>
       {
         _errorFormKey.currentState.save();
 
-        print(_errorCode + " "+ _iuc +"" + _email);
         List res = await Provider.of<DatabaseService>(context, listen: false).addError(_iuc, _errorCode, _email);
 
 
@@ -280,7 +280,7 @@ class _ClearErrorState extends State<ClearError>
 
         }
 
-        if(map['status'] == "fail")
+        if(map['status'] == "Fail")
         {
           _showErrorDialog(map['msg'], map['status']);
           setState(() => _isLoading = true);
@@ -342,7 +342,7 @@ class _ClearErrorState extends State<ClearError>
       drawer: NavDrawer(),
       appBar: AppBar(
         title: Center(child:
-        Text('Clear error', style: TextStyle(
+        Text('Clear Error Code', style: TextStyle(
           color: Colors.white,
 
           fontSize: 32.0,
