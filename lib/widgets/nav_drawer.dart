@@ -4,11 +4,14 @@ import 'package:mydstv_gotv_self_service/screens/bouquet.dart';
 import 'package:mydstv_gotv_self_service/screens/channel.dart';
 import 'package:mydstv_gotv_self_service/screens/clear_error.dart';
 import 'package:mydstv_gotv_self_service/screens/home_screen.dart';
+import 'package:mydstv_gotv_self_service/screens/login_screen.dart';
 import 'package:mydstv_gotv_self_service/screens/purchase_items.dart';
 import 'package:mydstv_gotv_self_service/screens/request_installation.dart';
 import 'package:mydstv_gotv_self_service/screens/subscribe_screen.dart';
 import 'package:mydstv_gotv_self_service/screens/trans.dart';
 import 'package:mydstv_gotv_self_service/screens/transaction_history.dart';
+import 'package:mydstv_gotv_self_service/services/auth_service.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NavDrawer extends StatelessWidget
@@ -55,8 +58,8 @@ class NavDrawer extends StatelessWidget
     });
 
 
-
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -152,6 +155,18 @@ class NavDrawer extends StatelessWidget
             leading: Icon(Icons.message),
             title: Text('Message Customer Care'),
             onTap: () =>_sendSMS(),
+          ),
+          ListTile(
+            leading: Icon(Icons.exit_to_app),
+            title: Text('Log Out'),
+            onTap: () {
+              Provider.of<AuthService>(context, listen: false).logout();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+                    (Route<dynamic> route) => false,
+              );
+            },
           ),
 
         ],

@@ -27,6 +27,8 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   String _phone = '';
+  String _name = '';
+
 
 
   bool _isLoading = false;
@@ -35,6 +37,8 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   {
     super.initState();
     _phone = widget.user.phone;
+    _name = widget.user.name;
+
 
   }
   String _selected;
@@ -109,8 +113,8 @@ class _EditProfileScreenState extends State<EditProfileScreen>
         Provider.of<AuthService>(context, listen: false).logout();
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
-          ModalRoute.withName('/'),
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+              (Route<dynamic> route) => false,
         );
       }
 
@@ -181,7 +185,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
 
         final dbService = Provider.of<DatabaseService>(context, listen: false);
 //        update user info in mysql server database
-        List res = await dbService.updateUser(widget.user.email, _phone);
+        List res = await dbService.updateUser(widget.user.email, _phone, _name);
         Map<String, dynamic> map;
         for(int i = 0; i < res.length; i++)
         {
@@ -200,6 +204,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
           User user = User(
             id: widget.user.id,
             phone: _phone,
+            name: _name
           );
 
           DatabaseService.updateUserFirebase(user);
@@ -230,7 +235,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
       drawer: NavDrawer(),
       appBar: AppBar(
         title: Center(child:
-        Text('Profile edit', style: TextStyle(
+        Text('Profile Edit', style: TextStyle(
           color: Colors.white,
           fontSize: 32.0,
         ),)),
@@ -260,22 +265,37 @@ class _EditProfileScreenState extends State<EditProfileScreen>
         onTap: ()=>FocusScope.of(context).unfocus(),
         child: ListView(
           children: <Widget>[
-            _isLoading ? LinearProgressIndicator(
-              backgroundColor: Colors.blue[208],
-              valueColor: AlwaysStoppedAnimation(Colors.blue),
-            ) : SizedBox.shrink(),
-
+//            _isLoading  ? LinearProgressIndicator(
+//              backgroundColor: Colors.blue[208],
+//              valueColor: AlwaysStoppedAnimation(Colors.blue),
+//            ) : SizedBox.shrink(),
             Padding(
               padding: EdgeInsets.all(30.0),
               child: Form(key: _formKey,
                 child: Column(
                   children: <Widget>[
-                    CircleAvatar(
-                      radius: 50.0,
-                      backgroundColor: Colors.grey,
-                      backgroundImage: _displayProfileImage(),
-                    ),
+//                    CircleAvatar(
+//                      radius: 50.0,
+//                      backgroundColor: Colors.grey,
+//                      backgroundImage: _displayProfileImage(),
+//                    ),
 
+                    TextFormField(
+                      initialValue: _name,
+                      style: TextStyle(fontSize: 18.0),
+
+                      decoration: InputDecoration(
+                        icon: Icon(
+                          Icons.verified_user,
+                          size: 30.0,
+                        ),
+                        labelText: 'Name',
+                      ),
+                      validator: (input)=> input.trim().isEmpty ? 'please enter a valid name' : null,
+                      onSaved: (input)=> _name = input,
+
+                    ),
+                    SizedBox(height: 5.0),
                     TextFormField(
                       initialValue: _phone,
                       style: TextStyle(fontSize: 18.0),
@@ -285,13 +305,14 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                           Icons.phone,
                           size: 30.0,
                         ),
-                        labelText: 'Phone number',
+                        labelText: 'Phone Number',
                       ),
                       validator: (input)=> input.trim().length < 1 ? 'please enter a valid phone number' : null,
                       onSaved: (input)=> _phone = input,
 
                     ),
                     SizedBox(height: 5.0),
+
 
 
                     Container(

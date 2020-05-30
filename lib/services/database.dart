@@ -433,13 +433,14 @@ class DatabaseService
     }
   }
 
-  updateUser(String email, String phone)async
+  updateUser(String email, String phone, String name)async
   {
 
     try{
       var map = Map<String, dynamic>();
       map['email'] = email;
       map['phone'] = phone;
+      map['name'] = name;
       String url = "https://mydstvgotvforselfservice.com/new_mobile/pizza/update.php";
       http.Response response = await http.post(Uri.encodeFull(url), body: map, headers: {"Accept": "application/json"});
       if(response.statusCode == 200)
@@ -518,7 +519,7 @@ class DatabaseService
       if(response.statusCode == 200)
       {
         List result = json.decode(response.body);
-
+        print("from server: $result");
         return result;
       }
       else{
@@ -664,6 +665,7 @@ class DatabaseService
   {
     usersRef.document(user.id).updateData({
       'phone' : user.phone,
+      'name': user.name
     });
   }
 

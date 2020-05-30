@@ -155,8 +155,8 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
         Provider.of<AuthService>(context, listen: false).logout();
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
-          ModalRoute.withName('/'),
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+              (Route<dynamic> route) => false,
         );
       }
 
@@ -204,7 +204,7 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
         }).toList(),
         style: TextStyle(fontSize: 15.0),
         decoration: InputDecoration(
-            labelText: 'select quantity',
+            labelText: 'Select Quantity',
             labelStyle: TextStyle(fontSize: 18.0),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
@@ -277,6 +277,9 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
 
     else if (_isLoading == false)
     {
+      setState(() {
+        _price = int.parse(widget.products.price) * int.parse(_number);
+      });
 //      _scaffoldKey.currentState.showSnackBar(
 //          new SnackBar(duration: new Duration(seconds: 5),
 //            content:
@@ -290,8 +293,14 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
 //          ));
 
       try {
-        if (_purchaseFormKey.currentState.validate()) {
+        if (_purchaseFormKey.currentState.validate())
+        {
           _purchaseFormKey.currentState.save();
+          if(widget.products.discount != "")
+          {
+            _price = _price - int.parse(widget.products.discount);
+
+          }
 
           String type = "buy";
           String bouq;
@@ -341,7 +350,7 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
         }
       }
       on PlatformException catch (error) {
-        _showErrorDialog(error.message, "error");
+        _showErrorDialog(error.message, "Error");
       }
     }
 
@@ -359,7 +368,7 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
             actions: <Widget>[
               Platform.isIOS
                   ? new CupertinoButton(
-                child: Text('ok'),
+                child: Text('Ok'),
                 onPressed: ()=>Navigator.pop(context),
               ) : FlatButton(
                 child: Text('Ok'),
@@ -476,7 +485,7 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                         ),
-                        widget.products.discount == null ? 'N/A' : Text(widget.products.discount, style: TextStyle(
+                        widget.products.discount == "" ? Text('N/A') : Text(widget.products.discount, style: TextStyle(
                           fontSize: 22.0,
                           fontWeight: FontWeight.bold,
                         ),
@@ -531,14 +540,24 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
              child:  _buildSubscribeForm(),
           ),
 
-//          Center(
-//            child: Text('', style: TextStyle(
-//              fontSize: 22.0,
-//              fontWeight: FontWeight.w600,
-//              letterSpacing: 1.2,
-//            ),
-//            ),
-//          ),
+           Padding(
+          padding: EdgeInsets.symmetric(
+          horizontal: 10.0,
+          vertical: 10.0),
+          child: Container(
+
+          child: Column(
+            children: <Widget>[
+
+            Center(child: Text(widget.products.detail, style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 10.0,
+            ),),
+            ),
+            ],
+            ),
+            ),
+          ),
           SizedBox(height: 5.0),
           Padding(
             padding: const EdgeInsets.all(20.0),

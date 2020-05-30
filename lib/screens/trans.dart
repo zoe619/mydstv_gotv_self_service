@@ -137,9 +137,11 @@ class _TransState extends State<Trans>
       else if(_selected == 'log_out')
       {
         Provider.of<AuthService>(context, listen: false).logout();
-        Navigator.push(context, MaterialPageRoute(
-          builder: (_)=>LoginScreen(),
-        ));
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+              (Route<dynamic> route) => false,
+        );
       }
 
     });
@@ -192,7 +194,7 @@ class _TransState extends State<Trans>
           ],
           rows: _transaction.map((trans)=>DataRow(
               cells: [
-                DataCell(Text(trans.id)),
+                DataCell(Text(trans.id.toString())),
                 DataCell(Text(trans.amount.toUpperCase())),
                 DataCell(Text(trans.period.toUpperCase())),
                 DataCell(Text(trans.type.toUpperCase()))

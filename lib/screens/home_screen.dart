@@ -137,9 +137,11 @@ class _HomeScreenState extends State<HomeScreen>
       else if(_selected == 'log_out')
       {
          Provider.of<AuthService>(context, listen: false).logout();
-         Navigator.push(context, MaterialPageRoute(
-           builder: (_)=>LoginScreen(),
-         ));
+         Navigator.pushAndRemoveUntil(
+           context,
+           MaterialPageRoute(builder: (context) => LoginScreen()),
+               (Route<dynamic> route) => false,
+         );
       }
 
     });

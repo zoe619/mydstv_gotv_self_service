@@ -75,6 +75,8 @@ class _PaystackPayState extends State<PaystackPay>
     _radioValue = 1;
 //    _fetchAccessCodeFrmServer2();
 
+    print(widget.price);
+
   }
 
   Widget _buildCheckOut()
@@ -440,10 +442,13 @@ class _PaystackPayState extends State<PaystackPay>
       ..email = widget.email
       ..card = _getCardFromUI();
 
+
+
     if (!_isLocal)
     {
       var accessCode = await _fetchAccessCodeFrmServer(_getReference());
       charge.accessCode = accessCode;
+
 
       setState(() {
         _reference = charge.reference;
@@ -465,9 +470,11 @@ class _PaystackPayState extends State<PaystackPay>
       );
 
       setState(() => _inProgress = false);
-      _updateStatus(response.reference, '$response');
+//      _updateStatus(response.reference, '$response');
+
 
       bool resp = await _verifyOnServer(response.reference);
+
       if(resp)
       {
 
@@ -476,7 +483,7 @@ class _PaystackPayState extends State<PaystackPay>
           if(widget.type == "sub")
           {
             List res = await Provider.of<DatabaseService>(context, listen: false).addSubscription(widget.plan, widget.bouq,
-                widget.month, widget.price.toString(), widget.iuc, widget.email, _reference);
+                widget.month, widget.price.toString(), widget.iuc, widget.email, response.reference);
 
             Map<String, dynamic> map;
 
@@ -485,7 +492,7 @@ class _PaystackPayState extends State<PaystackPay>
               map = res[i];
 
             }
-            if(map['status'] == "fail")
+            if(map['status'] == "Fail")
             {
               _showErrorDialog(map['msg'], map['status']);
             }
@@ -498,7 +505,7 @@ class _PaystackPayState extends State<PaystackPay>
           else if(widget.type == "buy")
           {
             List res = await Provider.of<DatabaseService>(context, listen: false).addPurchase(widget.brand, widget.product, widget.email,
-                widget.number, widget.price.toString(), _reference);
+                widget.number, widget.price.toString(), response.reference);
 
             Map<String, dynamic> map;
 
@@ -508,7 +515,7 @@ class _PaystackPayState extends State<PaystackPay>
 
             }
 
-            if(map['status'] == "fail")
+            if(map['status'] == "Fail")
             {
               _showErrorDialog(map['msg'], map['status']);
             }
@@ -523,7 +530,7 @@ class _PaystackPayState extends State<PaystackPay>
 
         }on PlatformException catch(error)
         {
-          _showErrorDialog(error.message, "error");
+//          _showErrorDialog(error.message, "Error");
         }
 
       }
@@ -531,7 +538,7 @@ class _PaystackPayState extends State<PaystackPay>
     }
     catch (e) {
       setState(() => _inProgress = false);
-      _showMessage("Check console for error");
+//      _showMessage("Check console for error");
       rethrow;
     }
   }
@@ -609,7 +616,7 @@ class _PaystackPayState extends State<PaystackPay>
     // Save reference so you may send to server if error occurs with OTP
     handleBeforeValidate(Transaction transaction)
     {
-      _updateStatus(transaction.reference, 'validating...');
+//      _updateStatus(transaction.reference, 'validating...');
       setState(() {
         _reference = transaction.reference;
       });
@@ -703,7 +710,7 @@ class _PaystackPayState extends State<PaystackPay>
       else
         {
         setState(() => _inProgress = false);
-        _updateStatus(transaction.reference, e.toString());
+//        _updateStatus(transaction.reference, e.toString());
       }
     }
 
@@ -768,7 +775,7 @@ class _PaystackPayState extends State<PaystackPay>
 
         }on PlatformException catch(error)
         {
-          _showErrorDialog(error.message, "error");
+          _showErrorDialog(error.message, "Error");
         }
 
       }

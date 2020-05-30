@@ -123,9 +123,11 @@ class _BouquetState extends State<Bouquet>
       else if(_selected == 'log_out')
       {
         Provider.of<AuthService>(context, listen: false).logout();
-        Navigator.push(context, MaterialPageRoute(
-          builder: (_)=>LoginScreen(),
-        ));
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+              (Route<dynamic> route) => false,
+        );
       }
 
     });
@@ -158,7 +160,7 @@ class _BouquetState extends State<Bouquet>
                   ClipRRect(
                     borderRadius: BorderRadius.circular(15.0),
                     child: Image(
-                      height: 120.0,
+                      height: 100.0,
                       width: 150.0,
                       image: AssetImage("assets/images/click3.jpeg"),
                       fit: BoxFit.cover,

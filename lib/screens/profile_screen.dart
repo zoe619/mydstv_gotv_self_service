@@ -109,9 +109,11 @@ class _ProfileScreenState extends State<ProfileScreen>
         Provider.of<AuthService>(context, listen: false).logout();
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
-          ModalRoute.withName('/'),
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+              (Route<dynamic> route) => false,
         );
+
+
       }
 
     });
@@ -168,13 +170,13 @@ class _ProfileScreenState extends State<ProfileScreen>
           padding: EdgeInsets.fromLTRB(30.0, 30.0, 30.0, 8.0),
           child: Row(
             children: <Widget>[
-              CircleAvatar(
-                radius: 50.0,
-                backgroundColor: Colors.grey,
-                backgroundImage:
-                AssetImage('assets/images/user_placeholder.png')
-
-              ),
+//              CircleAvatar(
+//                radius: 50.0,
+//                backgroundColor: Colors.grey,
+//                backgroundImage:
+//                AssetImage('assets/images/user_placeholder.png')
+//
+//              ),
               Expanded(
                 child: Column(
                   children: <Widget>[

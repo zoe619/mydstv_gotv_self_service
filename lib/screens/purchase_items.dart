@@ -153,8 +153,8 @@ class _PurchaseItemsState extends State<PurchaseItems>
         Provider.of<AuthService>(context, listen: false).logout();
         Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
-          ModalRoute.withName('/'),
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+              (Route<dynamic> route) => false,
         );
       }
 

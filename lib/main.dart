@@ -89,6 +89,7 @@ class MyApp extends StatelessWidget
           "/homePage":(BuildContext context)=> new HomeScreen(),
           "/subPage":(BuildContext context)=> new Subscribe(),
           "/purchasePage":(BuildContext context)=> new PurchaseItems(),
+          "/loginPage":(BuildContext context)=> new LoginScreen(),
         }
     );
   }

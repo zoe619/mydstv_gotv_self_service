@@ -122,9 +122,11 @@ class _ChannelState extends State<Channel>
       else if(_selected == 'log_out')
       {
         Provider.of<AuthService>(context, listen: false).logout();
-        Navigator.push(context, MaterialPageRoute(
-          builder: (_)=>LoginScreen(),
-        ));
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => LoginScreen()),
+              (Route<dynamic> route) => false,
+        );
       }
 
     });
@@ -218,7 +220,7 @@ class _ChannelState extends State<Channel>
                     Padding(
                       padding: EdgeInsets.all(20.0),
                       child: Center(
-                        child: Text('Channels Lists', style: TextStyle(
+                        child: Text(widget.package, style: TextStyle(
                           fontSize: 24.0,
                           fontWeight: FontWeight.w600,
                           letterSpacing: 1.2,
