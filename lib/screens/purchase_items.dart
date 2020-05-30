@@ -31,6 +31,9 @@ class PurchaseItems extends StatefulWidget
 {
   @override
   _PurchaseItemsState createState() => _PurchaseItemsState();
+
+  final String brand;
+  PurchaseItems({this.brand});
 }
 
 class _PurchaseItemsState extends State<PurchaseItems>
@@ -60,7 +63,7 @@ class _PurchaseItemsState extends State<PurchaseItems>
   _getItems()async
   {
     var table = "products";
-    Provider.of<DatabaseService>(context, listen: false).getItems(table)
+    Provider.of<DatabaseService>(context, listen: false).getItems(table, widget.brand)
         .then((items)
         {
 

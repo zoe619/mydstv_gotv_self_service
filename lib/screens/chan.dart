@@ -1,65 +1,65 @@
-import 'dart:io';
-
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sms/flutter_sms.dart';
-import 'package:mydstv_gotv_self_service/models/channel.dart';
-import 'package:mydstv_gotv_self_service/models/package.dart';
+import 'package:intl/intl.dart';
+import 'package:mydstv_gotv_self_service/data/chan.dart';
+import 'package:mydstv_gotv_self_service/models/activities.dart';
+import 'package:mydstv_gotv_self_service/models/fcm_model.dart';
+import 'package:mydstv_gotv_self_service/models/user.dart';
 import 'package:mydstv_gotv_self_service/models/user_data.dart';
-import 'package:mydstv_gotv_self_service/screens/channel.dart';
+import 'package:mydstv_gotv_self_service/screens/bouquet.dart';
+import 'package:mydstv_gotv_self_service/screens/clear_error.dart';
+import 'package:mydstv_gotv_self_service/screens/fcm_messaging.dart';
+import 'package:mydstv_gotv_self_service/screens/home_screen.dart';
 import 'package:mydstv_gotv_self_service/screens/login_screen.dart';
 import 'package:mydstv_gotv_self_service/screens/profile_screen.dart';
-import 'package:mydstv_gotv_self_service/screens/purchase_items_details.dart';
+import 'package:mydstv_gotv_self_service/screens/purchase_items.dart';
+import 'package:mydstv_gotv_self_service/screens/request_installation.dart';
+import 'package:mydstv_gotv_self_service/screens/subscribe_screen.dart';
 import 'package:mydstv_gotv_self_service/services/auth_service.dart';
 import 'package:mydstv_gotv_self_service/services/database.dart';
+import 'package:mydstv_gotv_self_service/widgets/fcm.dart';
+import 'package:mydstv_gotv_self_service/widgets/fcm_widget.dart';
+import 'package:mydstv_gotv_self_service/widgets/messaging.dart';
 import 'package:mydstv_gotv_self_service/widgets/nav_drawer.dart';
+import 'package:mydstv_gotv_self_service/widgets/hello.dart';
 import 'package:mydstv_gotv_self_service/widgets/pop_dart.dart';
 import 'package:mydstv_gotv_self_service/widgets/welcome.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Bouquet extends StatefulWidget
-{
-  @override
-  _BouquetState createState() => _BouquetState();
+import 'activity_screen.dart';
 
-  final String brand;
-   Bouquet({this.brand});
+class ChanScreen extends StatefulWidget
+{
+  final String userId;
+
+  ChanScreen({this.userId});
+  @override
+  _ChanScreenState createState() => _ChanScreenState();
 }
 
-class _BouquetState extends State<Bouquet>
+class _ChanScreenState extends State<ChanScreen>
 {
 
+  DateTime _date = DateTime.now();
   String _selected;
+  final DateFormat _dateFormatter = DateFormat('MMM dd, yyyy').add_jm();
   String _userId;
 
-
-
-
-  List<Package> _channel;
-
   @override
-  void initState() {
+  void initState()
+  {
     // TODO: implement initState
     super.initState();
 
-    _userId = Provider.of<UserData>(context, listen: false).currentUserId;
-
+    _dateFormatter.format(_date);
+    _userId = widget.userId;
 
 
   }
 
-  _getChannel() async{
-    List<Package> channel = await Provider.of<DatabaseService>(context, listen: false).getPackage(widget.brand);
-    if(mounted){
-      setState(() {
-        _channel = channel;
-
-      });
-    }
-
-  }
 
   _dialPhone() async
   {
@@ -91,7 +91,7 @@ class _BouquetState extends State<Bouquet>
   void _sendSMS() async
   {
 
-//    String phone = "08033169636";
+
     String message = "type a message";
     List<String> recipients = ["09081867279", "08099926467"];
 
@@ -141,16 +141,31 @@ class _BouquetState extends State<Bouquet>
 
   }
 
-  _buildItems()
+
+
+
+
+  _buildActivities()
   {
-    List<Widget> channelList = [];
-    _channel == null ? Platform.isIOS ? CupertinoActivityIndicator() : CircularProgressIndicator() :
-    _channel.forEach((Package package){
-      channelList.add(
+    List<Widget> activityList = [];
+    activities.forEach((Activity activity){
+      activityList.add(
           GestureDetector(
             onTap: ()=>Navigator.push(context,
                 MaterialPageRoute(
-                  builder: (_)=>Channel(package: package.package),
+                  builder: (_)
+                  {
+                    if(activity.name == "DStv"){
+                      return Bouquet(brand: "DStv");
+                    }
+                    if(activity.name == "GOtv"){
+                      return Bouquet(brand: "GOtv");
+                    }
+                    else
+                    {
+                      return HomeScreen();
+                    }
+                  },
                 )),
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
@@ -180,12 +195,11 @@ class _BouquetState extends State<Bouquet>
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          package.package != null ?
-                          Text(package.package, style: TextStyle(
+                          Text(activity.name, style: TextStyle(
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                           ),
-                          ) : SizedBox.shrink(),
+                          ),
 
                           SizedBox(height: 6.0),
 
@@ -200,25 +214,30 @@ class _BouquetState extends State<Bouquet>
           )
       );
     });
-
     return Column(
-        children: channelList
-    );
-
+        children: activityList);
 
   }
-
   @override
   Widget build(BuildContext context)
   {
+
+    final currentUserId = Provider.of<UserData>(context, listen: false).currentUserId;
+
+
+
+
     return Scaffold(
       drawer: NavDrawer(),
       appBar: AppBar(
-        title: Center(child:
-        Text('Channel Lists', style: TextStyle(
-          color: Colors.white,
-          fontSize: 32.0,
-        ),)),
+        title: Padding(
+          padding: const EdgeInsets.only(right: 10.0),
+          child: Center(child:
+          Text('MyDStv GOtv Self Support', style: TextStyle(
+            color: Colors.white,
+            fontSize: 20.0,
+          ),)),
+        ),
 
         actions: <Widget>[
 
@@ -242,40 +261,38 @@ class _BouquetState extends State<Bouquet>
         ],
 
       ),
-      body: FutureBuilder(
-        future: _getChannel(),
-        builder: (BuildContext context, AsyncSnapshot snapshot){
+      body: ListView(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(20.0),
 
-          return ListView(
+          ),
+          SizedBox(height: 5.0),
+          Welcome(),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.all(20.0),
-
-              ),
-              Welcome(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding:EdgeInsets.symmetric(horizontal: 1.0),
-                    child: Center(
-                      child: Text('Packages', style: TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 1.2,
-                      ),
-                      ),
-                    ),
+                padding:EdgeInsets.symmetric(horizontal: 1.0),
+                child: Center(
+                  child: Text('Select A Brand', style: TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 1.2,
                   ),
-                  _channel != null ? _buildItems() : Center(child: Platform.isIOS ? CupertinoActivityIndicator() :
-                  CircularProgressIndicator()),
-                ],
-              )
+                  ),
+                ),
+              ),
+              _buildActivities(),
+              SizedBox(height: 20.0),
             ],
-          );
-        },
+          ),
+          SizedBox(height: 20.0),
 
+        ],
       ),
     );
+
   }
 }
+

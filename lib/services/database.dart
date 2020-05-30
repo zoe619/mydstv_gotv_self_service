@@ -43,12 +43,12 @@ class DatabaseService
     }
   }
 
-  Future<List<Products>> getItems(String table)async
+  Future<List<Products>> getItems(String table, String brand)async
   {
 
     var map = Map<String, dynamic>();
     map['table'] = table;
-
+    map['brand'] = brand;
 
     try{
 
@@ -185,14 +185,17 @@ class DatabaseService
 
   }
 
-  Future<List<Package>> getPackage()async
+  Future<List<Package>> getPackage(String brand)async
   {
+
+    var map = Map<String, dynamic>();
+    map['brand'] = brand;
 
 
     try{
 
       String url = "https://mydstvgotvforselfservice.com/new_mobile/pizza/getPackage.php";
-      http.Response response = await http.get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
+      http.Response response = await http.post(Uri.encodeFull(url), body: map, headers: {"Accept": "application/json"});
 
       if(response.statusCode == 200)
       {
@@ -519,7 +522,7 @@ class DatabaseService
       if(response.statusCode == 200)
       {
         List result = json.decode(response.body);
-        print("from server: $result");
+
         return result;
       }
       else{

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_sms/flutter_sms.dart';
 import 'package:mydstv_gotv_self_service/screens/bouquet.dart';
+import 'package:mydstv_gotv_self_service/screens/chan.dart';
 import 'package:mydstv_gotv_self_service/screens/channel.dart';
 import 'package:mydstv_gotv_self_service/screens/clear_error.dart';
 import 'package:mydstv_gotv_self_service/screens/home_screen.dart';
 import 'package:mydstv_gotv_self_service/screens/login_screen.dart';
+import 'package:mydstv_gotv_self_service/screens/prod.dart';
 import 'package:mydstv_gotv_self_service/screens/purchase_items.dart';
 import 'package:mydstv_gotv_self_service/screens/request_installation.dart';
 import 'package:mydstv_gotv_self_service/screens/subscribe_screen.dart';
@@ -105,7 +107,7 @@ class NavDrawer extends StatelessWidget
             title: Text('Purchase'),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (_)=>PurchaseItems(),
+                builder: (_)=>ProdScreen(),
               ));
             },
           ),
@@ -141,7 +143,7 @@ class NavDrawer extends StatelessWidget
             title: Text('Channels List'),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (_)=>Bouquet(),
+                builder: (_)=>ChanScreen(),
               ));
             },
           ),
