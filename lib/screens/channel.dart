@@ -185,24 +185,28 @@ class _ChannelState extends State<Channel>
         ),)),
 
         actions: <Widget>[
+          IconButton(icon: Icon(Icons.search), color: Colors.white, onPressed: ()
+          {
+            showSearch(context: context, delegate: DataSearch(channel: _channel));
+          }),
 
-          new PopupMenuButton(
-            itemBuilder: (BuildContext context){
-              return PopUp.pop.map((PopUp pop){
-                return new PopupMenuItem(
-                  value: pop,
-
-                  child: new ListTile(
-                    title: pop.title,
-                    leading: pop.icon,
-                  ),
-
-                );
-
-              }).toList();
-            },
-            onSelected: choiceAction,
-          ),
+//          new PopupMenuButton(
+//            itemBuilder: (BuildContext context){
+//              return PopUp.pop.map((PopUp pop){
+//                return new PopupMenuItem(
+//                  value: pop,
+//
+//                  child: new ListTile(
+//                    title: pop.title,
+//                    leading: pop.icon,
+//                  ),
+//
+//                );
+//
+//              }).toList();
+//            },
+//            onSelected: choiceAction,
+//          ),
         ],
 
       ),
@@ -243,4 +247,111 @@ class _ChannelState extends State<Channel>
       ),
     );
   }
+}
+class DataSearch extends SearchDelegate<String>
+{
+
+  List<Channels> channel;
+  DataSearch({this.channel});
+
+  SingleChildScrollView _dataBody(List<Channels> channels)
+  {
+
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: DataTable(
+          columns: [
+
+
+            DataColumn(
+              label: Text("CHANNEL"),
+            ),
+            DataColumn(
+              label: Text("CHANNEL NUMBER"),
+            ),
+
+          ],
+
+          rows: channels.map((chan)=>DataRow(
+
+              cells: [
+
+                DataCell(Text(chan.channel.toUpperCase())),
+                DataCell(Text(chan.channel_number)),
+
+              ]
+
+          )
+
+          ).toList(),
+        ),
+      ),
+    );
+
+  }
+
+  _getSearch(String value)
+  {
+
+    channel.forEach((Channels c)
+    {
+      if(c.channel == value)
+      {
+         _dataBody(channel);
+      }
+    });
+
+
+  }
+
+
+
+  @override
+  List<Widget> buildActions(BuildContext context)
+  {
+//    actions for app bar
+    // TODO: implement buildActions
+    return [
+     IconButton(icon: Icon(Icons.clear), onPressed: (){
+       query = "";
+     },)
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context)
+  {
+//    leading icons on the left of the search bar
+    // TODO: implement buildLeading
+    return IconButton(
+      icon: AnimatedIcon(
+        icon: AnimatedIcons.menu_arrow,
+        progress: transitionAnimation,
+      ),
+      onPressed: (){
+        close(context, null);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context)
+  {
+//    show some results based on the selection
+    // TODO: implement buildResults
+    return null;
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context)
+  {
+     List<Channels> channelList;
+//    searches for something
+     channelList = query.isEmpty ? channel : channel.where((p) => p.channel.startsWith(query)).toList();
+     return _dataBody(channelList);
+  }
+
 }
