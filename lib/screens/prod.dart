@@ -56,6 +56,7 @@ class _ProdScreenState extends State<ProdScreen>
 
     _dateFormatter.format(_date);
     _userId = widget.userId;
+    _userId = Provider.of<UserData>(context, listen: false).currentUserId;
 
 
   }
@@ -234,7 +235,7 @@ class _ProdScreenState extends State<ProdScreen>
         title: Padding(
           padding: const EdgeInsets.only(right: 10.0),
           child: Center(child:
-          Text('MyDStv GOtv Self Support', style: TextStyle(
+          Text('Purchase', style: TextStyle(
             color: Colors.white,
             fontSize: 20.0,
           ),)),

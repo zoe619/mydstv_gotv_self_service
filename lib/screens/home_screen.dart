@@ -65,6 +65,7 @@ class _HomeScreenState extends State<HomeScreen>
     _messages = List<FcmModel>();
 
     Provider.of<AuthService>(context, listen: false).updateToken();
+    _userId = Provider.of<UserData>(context, listen: false).currentUserId;
 
   }
 

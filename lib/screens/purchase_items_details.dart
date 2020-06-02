@@ -449,7 +449,7 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
                             fontSize: 18.0,
                             fontWeight: FontWeight.w600
                         ),),
-                        Text("NGN"+_price.toString(), style: TextStyle(
+                        Text("NGN" + _price.toString(), style: TextStyle(
                             fontSize: 22.0,
                             fontWeight: FontWeight.bold
                         ),),
@@ -485,7 +485,7 @@ class _PurchaseItemDetailsState extends State<PurchaseItemDetails>
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                         ),
-                        widget.products.discount == "" ? Text('N/A') : Text(widget.products.discount, style: TextStyle(
+                        widget.products.discount == "" ? Text('N/A') : Text("NGN${widget.products.discount}", style: TextStyle(
                           fontSize: 22.0,
                           fontWeight: FontWeight.bold,
                         ),

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:http/http.dart' as http;
+import 'package:mydstv_gotv_self_service/screens/prod.dart';
 import 'package:mydstv_gotv_self_service/screens/purchase_items.dart';
 import 'package:mydstv_gotv_self_service/screens/subscribe_screen.dart';
 import 'package:mydstv_gotv_self_service/services/database.dart';
@@ -567,7 +568,7 @@ class _PaystackPayState extends State<PaystackPay>
 //                    Navigator.popAndPushNamed(context, "/purchasePage");
                     Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (BuildContext context) => PurchaseItems()),
+                      MaterialPageRoute(builder: (BuildContext context) => ProdScreen()),
                       ModalRoute.withName('/'),
                     );
                   }

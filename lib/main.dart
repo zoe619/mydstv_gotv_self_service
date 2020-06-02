@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mydstv_gotv_self_service/screens/home_screen.dart';
 import 'package:mydstv_gotv_self_service/screens/login_screen.dart';
+import 'package:mydstv_gotv_self_service/screens/prod.dart';
 import 'package:mydstv_gotv_self_service/screens/purchase_items.dart';
 import 'package:mydstv_gotv_self_service/screens/subscribe_screen.dart';
 import 'package:mydstv_gotv_self_service/services/auth_service.dart';
@@ -89,6 +90,7 @@ class MyApp extends StatelessWidget
           "/homePage":(BuildContext context)=> new HomeScreen(),
           "/subPage":(BuildContext context)=> new Subscribe(),
           "/purchasePage":(BuildContext context)=> new PurchaseItems(),
+          "/prodPage":(BuildContext context)=> new ProdScreen(),
           "/loginPage":(BuildContext context)=> new LoginScreen(),
         }
     );

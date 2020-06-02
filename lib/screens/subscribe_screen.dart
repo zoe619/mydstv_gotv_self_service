@@ -49,7 +49,7 @@ class _SubscribeState extends State<Subscribe>
   Bouquet _singleBouquet;
 
   List<String> _packages = ["DStv", "GOtv"];
-  List<String> _months = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"];
+  List<String> _months = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
   var publicKey = '[]';
 
 
@@ -383,7 +383,7 @@ class _SubscribeState extends State<Subscribe>
           else
             {
               setState(() {
-                _months = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"];
+                _months = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
               });
             _getPrice(_bouq);
           }
