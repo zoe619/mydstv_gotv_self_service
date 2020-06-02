@@ -243,7 +243,7 @@ class _TransactionState extends State<Transaction>
                     children: <Widget>[
                       Welcome(),
                       Padding(
-                        padding: EdgeInsets.all(20.0),
+                        padding: EdgeInsets.all(10.0),
                         child: Center(
                           child: Text('Your Transactions', style: TextStyle(
                             fontSize: 24.0,

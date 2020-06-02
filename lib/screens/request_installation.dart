@@ -411,7 +411,7 @@ class _RequestInstallationState extends State<RequestInstallation>
       body: ListView(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(10.0),
 
           ),
           Welcome(),

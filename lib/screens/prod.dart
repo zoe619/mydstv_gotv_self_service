@@ -266,7 +266,7 @@ class _ProdScreenState extends State<ProdScreen>
       body: ListView(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(10.0),
 
           ),
           SizedBox(height: 5.0),
