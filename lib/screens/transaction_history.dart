@@ -39,7 +39,7 @@ class _TransactionState extends State<Transaction>
 
     _userId = Provider.of<UserData>(context, listen: false).currentUserId;
     getUserData();
-    _getTransaction();
+//    _getTransaction();
 
 
   }
@@ -236,10 +236,6 @@ class _TransactionState extends State<Transaction>
           builder: (BuildContext context, AsyncSnapshot snapshot)
           {
 
-            if(_transaction == null)
-            {
-              _showErrorDialog("No transactions yet", "error");
-            }
               return Container(
 //                  crossAxisAlignment: CrossAxisAlignment.start,
                   child: Column(

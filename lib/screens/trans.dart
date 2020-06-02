@@ -183,21 +183,23 @@ class _TransState extends State<Trans>
               label: Text("ID"),
             ),
             DataColumn(
-              label: Text("AMOUNT"),
-            ),
-            DataColumn(
               label: Text("DATE"),
             ),
             DataColumn(
               label: Text("TYPE"),
-            )
+            ),
+            DataColumn(
+              label: Text("AMOUNT"),
+            ),
+
           ],
           rows: _transaction.map((trans)=>DataRow(
               cells: [
                 DataCell(Text(trans.id.toString())),
-                DataCell(Text(trans.amount.toUpperCase())),
                 DataCell(Text(trans.period.toUpperCase())),
-                DataCell(Text(trans.type.toUpperCase()))
+                DataCell(Text(trans.type.toUpperCase())),
+                DataCell(Text(trans.amount.toUpperCase()))
+
               ]
           )
           ).toList(),

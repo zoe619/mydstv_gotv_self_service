@@ -11,6 +11,7 @@ import 'package:mydstv_gotv_self_service/models/user_data.dart';
 import 'package:mydstv_gotv_self_service/screens/clear_error.dart';
 import 'package:mydstv_gotv_self_service/screens/fcm_messaging.dart';
 import 'package:mydstv_gotv_self_service/screens/login_screen.dart';
+import 'package:mydstv_gotv_self_service/screens/prod.dart';
 import 'package:mydstv_gotv_self_service/screens/profile_screen.dart';
 import 'package:mydstv_gotv_self_service/screens/purchase_items.dart';
 import 'package:mydstv_gotv_self_service/screens/request_installation.dart';
@@ -221,7 +222,7 @@ class _HomeScreenState extends State<HomeScreen>
                   builder: (_)
                   {
                     if(activity.name == "Purchase"){
-                      return PurchaseItems();
+                      return ProdScreen();
                     }
                     else if(activity.name == "Subscribe")
                     {

@@ -168,7 +168,8 @@ class _ChanScreenState extends State<ChanScreen>
                   },
                 )),
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
+              height: 200.0,
+              margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(15.0),

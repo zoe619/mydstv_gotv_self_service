@@ -253,6 +253,7 @@ class DataSearch extends SearchDelegate<String>
 
   List<Channels> channel;
   DataSearch({this.channel});
+  List<Channels> channelList;
 
   SingleChildScrollView _dataBody(List<Channels> channels)
   {
@@ -293,21 +294,6 @@ class DataSearch extends SearchDelegate<String>
 
   }
 
-  _getSearch(String value)
-  {
-
-    channel.forEach((Channels c)
-    {
-      if(c.channel == value)
-      {
-         _dataBody(channel);
-      }
-    });
-
-
-  }
-
-
 
   @override
   List<Widget> buildActions(BuildContext context)
@@ -342,15 +328,15 @@ class DataSearch extends SearchDelegate<String>
   {
 //    show some results based on the selection
     // TODO: implement buildResults
-    return null;
+    return _dataBody(channelList);
   }
 
   @override
   Widget buildSuggestions(BuildContext context)
   {
-     List<Channels> channelList;
+
 //    searches for something
-     channelList = query.isEmpty ? channel : channel.where((p) => p.channel.startsWith(query)).toList();
+     channelList = query.isEmpty ? channel : channel.where((p) => p.channel.startsWith(query.substring(0, query.length).toUpperCase())).toList();
      return _dataBody(channelList);
   }
 
