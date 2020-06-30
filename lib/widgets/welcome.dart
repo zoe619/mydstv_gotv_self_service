@@ -85,10 +85,10 @@ class _WelcomeState extends State<Welcome>
 
                         SizedBox(height: 4.0),
 
-                        SizedBox(height: 4.0),
+
                         Text(_dateFormatter.format(date), style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          fontSize: 14.0,
+                          fontSize: 10.0,
                         ),
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -96,7 +96,7 @@ class _WelcomeState extends State<Welcome>
                         Flexible(
                           child: Text("Customer Care: 09081867279; 08099926467", style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: 10.0,
+                            fontSize: 8.0,
                             color: Theme.of(context).primaryColor
                           ),
 

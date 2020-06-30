@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mydstv_gotv_self_service/models/user_data.dart';
 import 'package:mydstv_gotv_self_service/screens/home_screen.dart';
 import 'package:mydstv_gotv_self_service/screens/reset_password.dart';
 import 'package:mydstv_gotv_self_service/services/auth_service.dart';
@@ -75,6 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
           horizontal: 30.0,
           vertical: 10.0),
       child: TextFormField(
+        keyboardType: TextInputType.emailAddress,
         decoration: const InputDecoration(labelText: 'Email'),
         validator: (input)=>
         !input.contains('@') ? 'Please enter a valid email' : null,
@@ -159,21 +161,25 @@ class _LoginScreenState extends State<LoginScreen> {
       {
 
         _loginFormKey.currentState.save();
-        bool login = await authService.login(_email, _password);
+        String login = await authService.login(_email, _password);
+        Provider.of<UserData>(context, listen: false).currentUserId = login;
+//          setState(() {
+//            _isLoading = true;
+//          });
 
-          setState(() {
-            _isLoading = true;
-          });
+        Navigator.push(context, MaterialPageRoute(
+          builder: (_)=>HomeScreen(userId: login),
+        ));
 
-        if(login)
-        {
-          Navigator.push(context, MaterialPageRoute(
-            builder: (_)=>HomeScreen(),
-          ));
-        }
-        else{
-          _showErrorDialog("Please Check Your Email To Verify Your Account", "error");
-        }
+//        if(login)
+//        {
+//          Navigator.push(context, MaterialPageRoute(
+//            builder: (_)=>HomeScreen(),
+//          ));
+//        }
+//        else{
+//          _showErrorDialog("Please Check Your Email To Verify Your Account", "error");
+//        }
 
       }
       else
@@ -191,17 +197,27 @@ class _LoginScreenState extends State<LoginScreen> {
 
         }
 
-        if(map['status'] == "fail")
+        if(map['status'] == "Fail")
         {
           _showErrorDialog(map['msg'], map['status']);
         }
         else
         {
-          await authService.signUp(_name, _email, _password, _phone);
+             String res =  await authService.signUp(_name, _email, _password, _phone);
 
-            setState(() {
-              _isLoading = true;
-            });
+//            setState(()
+//            {
+//              _isLoading = true;
+//            });
+            if(res != null)
+            {
+              _showErrorDialog2("Registration Succesful", "Success");
+              Provider.of<UserData>(context, listen: false).currentUserId = res;
+
+            }
+            else{
+              _showErrorDialog("Error On Registration", "Error");
+            }
 
 
         }
@@ -210,7 +226,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }
     on PlatformException catch (err) {
-      _showErrorDialog(err.message, "error");
+      _showErrorDialog(err.message, "Error");
     }
 
 
@@ -228,10 +244,10 @@ class _LoginScreenState extends State<LoginScreen> {
             actions: <Widget>[
               Platform.isIOS
                   ? new CupertinoButton(
-                child: Text('ok'),
+                child: Text('Ok'),
                 onPressed: ()=>Navigator.pop(context),
               ) : FlatButton(
-                child: Text('ok'),
+                child: Text('Ok'),
                 onPressed: () {
                   Navigator.pop(context);
 
@@ -244,6 +260,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   }
 
+
+
   _showErrorDialog2(String errMessage, String status)
   {
     showDialog(
@@ -255,10 +273,10 @@ class _LoginScreenState extends State<LoginScreen> {
             actions: <Widget>[
               Platform.isIOS
                   ? new CupertinoButton(
-                child: Text('ok'),
+                child: Text('Ok'),
                 onPressed: ()=>Navigator.popAndPushNamed(context, "/homePage"),
               ) : FlatButton(
-                child: Text('ok'),
+                child: Text('Ok'),
                 onPressed: ()=> Navigator.popAndPushNamed(context, "/homePage"),
               )
             ],

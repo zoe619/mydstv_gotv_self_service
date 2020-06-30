@@ -15,8 +15,9 @@ class AuthService{
 
   final FirebaseMessaging _messaging = FirebaseMessaging();
 
-  Future<void> signUp(String name, String email, String password, String phone) async
+  Future<String> signUp(String name, String email, String password, String phone) async
   {
+    String res;
     try{
       AuthResult authResult = await _auth.createUserWithEmailAndPassword(email: email, password: password);
 
@@ -29,40 +30,51 @@ class AuthService{
           'email': email,
           'phone': phone,
         });
-        String token = await _messaging.getToken();
-        tokensRef.document(authResult.user.uid)
-           .setData({
-          'device_token': token
-        });
 
-       try{
+        String token = await _messaging.getToken();
+        if(token != ""){
+          tokensRef.document(authResult.user.uid)
+              .setData({
+            'device_token': token
+          });
+        }
+
+
+       try
+       {
          authResult.user.sendEmailVerification();
+         res = authResult.user.uid;
        }
-       catch(e){
+
+       catch(e)
+       {
          print("An error occured while trying to send email verification");
-         print(e.message);
+         res = null;
        }
       }
     }
     on PlatformException catch(err){
       throw(err);
     }
+    return res;
   }
 
-  Future<bool> login(String email, String password) async {
+  Future<String> login(String email, String password) async {
     try{
-      AuthResult authResult = await _auth.signInWithEmailAndPassword(email: email, password: password);
-
-      if(authResult.user.isEmailVerified)
-      {
-        return true;
-      }
-      else{
-        return false;
-      }
+       AuthResult res =  await _auth.signInWithEmailAndPassword(email: email, password: password);
+       return res.user.uid;
+//      if(authResult.user.isEmailVerified)
+//      {
+//        return true;
+//      AuthResult authResult =
+//      }
+//      else{
+//        return false;
+//      }
 
     }
-    on PlatformException catch(err){
+    on PlatformException catch(err)
+    {
       throw (err);
     }
   }
@@ -102,7 +114,8 @@ class AuthService{
     {
       Tokens tokenObj  = Tokens.fromDoc(tokenDoc);
 
-      if(token != tokenObj.token){
+      if(token != tokenObj.token && token != "")
+      {
         tokensRef
             .document(currentUser.uid)
             .setData({'device_token': token}, merge: true);

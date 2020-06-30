@@ -361,7 +361,7 @@ class _SubscribeState extends State<Subscribe>
           {
             _bouq = value;
           });
-          if(_bouq == "Gotv Lite / Quarterly")
+          if(_bouq == "GOtv Lite / Quarterly, 1080")
           {
             setState(() {
               _months = ["4"];
@@ -371,7 +371,7 @@ class _SubscribeState extends State<Subscribe>
 
             });
           }
-          else if(_bouq == "Gotv Lite / Annually"){
+          else if(_bouq == "GOtv Lite / Annually, 3180"){
 
             setState(() {
               _months = ["12"];

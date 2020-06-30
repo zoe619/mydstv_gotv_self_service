@@ -35,6 +35,7 @@ class HomeScreen extends StatefulWidget
   final String userId;
 
   HomeScreen({this.userId});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -59,6 +60,7 @@ class _HomeScreenState extends State<HomeScreen>
 
     _dateFormatter.format(_date);
     _userId = widget.userId;
+//    print("home: "+ widget.userId);
 
     _getToken();
     _configureListeners();
@@ -66,6 +68,7 @@ class _HomeScreenState extends State<HomeScreen>
 
     Provider.of<AuthService>(context, listen: false).updateToken();
     _userId = Provider.of<UserData>(context, listen: false).currentUserId;
+
 
   }
 

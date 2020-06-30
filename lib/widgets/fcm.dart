@@ -37,24 +37,23 @@ class Fcm extends StatelessWidget
                        crossAxisAlignment: CrossAxisAlignment.start,
                        children: <Widget>[
                          Expanded(
-                           child: Text("Micgrand Inc", style: TextStyle(
+                           child: Text("Micgrand Resources Limited", style: TextStyle(
                              fontWeight: FontWeight.bold,
-                             fontSize: 12.0,
+                             fontSize: 10.0,
                            ),
                              overflow: TextOverflow.ellipsis,
                            ),
                          ),
 
-                         SizedBox(height: 4.0),
+                         SizedBox(height: 2.0),
 
-                         SizedBox(height: 4.0),
-                           Text("notification", style: TextStyle(
+                           Text("Notification", style: TextStyle(
                            fontWeight: FontWeight.w600,
-                           fontSize: 14.0,
+                           fontSize: 10.0,
                          ),
                            overflow: TextOverflow.ellipsis,
                          ),
-                         SizedBox(height: 15.0),
+                         SizedBox(height: 5.0),
                          Flexible(
                            child: msg.message == null ? SizedBox.shrink() : Text(msg.message, style: TextStyle(
                                fontWeight: FontWeight.bold,

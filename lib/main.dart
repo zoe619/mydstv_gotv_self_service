@@ -11,12 +11,7 @@ import 'package:mydstv_gotv_self_service/screens/subscribe_screen.dart';
 import 'package:mydstv_gotv_self_service/services/auth_service.dart';
 import 'package:mydstv_gotv_self_service/services/database.dart';
 import 'package:provider/provider.dart';
-
 import 'models/user_data.dart';
-
-
-
-
 
 void main() => runApp(
     MultiProvider(
@@ -76,7 +71,7 @@ class MyApp extends StatelessWidget
           {
             Provider.of<UserData>(context, listen: false).currentUserId
             = snapshot.data.uid;
-            return HomeScreen(userId: Provider.of<UserData>(context, listen: false).currentUserId);
+            return HomeScreen(userId: snapshot.data.uid);
           }
           else
             {

@@ -27,7 +27,11 @@ exports.messageTrigger = functions.firestore.document('Messages/{messageId}').on
 
      for(var token of deviceTokens.docs)
      {
-        tokens.push(token.data().device_token);
+        if(token.data().device_token !== "")
+        {
+           tokens.push(token.data().device_token);
+        }
+
 
      }
      newData = snapshot.data();
