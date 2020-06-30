@@ -73,10 +73,10 @@ class _WelcomeState extends State<Welcome>
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Expanded(
+                        Flexible(
                           child: Text("Hi, $_name. What a great day \n to be alive!", style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: 8.0,
+                            fontSize: 6.0,
                           ),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
@@ -84,7 +84,6 @@ class _WelcomeState extends State<Welcome>
                         ),
 
                         SizedBox(height: 4.0),
-
 
                         Text(_dateFormatter.format(date), style: TextStyle(
                           fontWeight: FontWeight.w600,
@@ -104,6 +103,12 @@ class _WelcomeState extends State<Welcome>
                             maxLines: 2,
                           ),
                         ),
+                        SizedBox(height: 10.0),
+                        Text("Our Website: dstvmicgrand.com", style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 8.0,
+                        color: Theme.of(context).primaryColor),
+                        )
                       ],
                     ),
                   ),
