@@ -487,7 +487,7 @@ class DatabaseService
       if(response.statusCode == 200)
       {
         List result = json.decode(response.body);
-
+        print(result);
         return result;
       }
       else{
@@ -504,6 +504,44 @@ class DatabaseService
       return err.toString();
     }
   }
+
+  addSubTrial(String brand, String bouquet, String month, String total, String iuc, String email, String reference)async
+  {
+    try{
+      var map = Map<String, dynamic>();
+      map['brand'] = brand;
+      map['bouquet'] = bouquet;
+      map['month'] = month;
+      map['total'] = total;
+      map['iuc'] = iuc;
+      map['email'] = email;
+      map['reference'] = reference;
+
+      String url = "https://mydstvgotvforselfservice.com/new_mobile/pizza/sub_trial.php";
+      http.Response response = await http.post(Uri.encodeFull(url), body: map, headers: {"Accept": "application/json"});
+
+
+      if(response.statusCode == 200)
+      {
+        List result = json.decode(response.body);
+        print(result);
+        return result;
+      }
+      else{
+
+        var error = json.decode(response.body);
+
+        return error;
+      }
+
+    }
+    catch(err)
+    {
+
+      return err.toString();
+    }
+  }
+
 
   addPurchase(String brand, String product, String email, String quantity, String price, String reference)async
   {

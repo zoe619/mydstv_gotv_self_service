@@ -76,7 +76,12 @@ class _PaystackPayState extends State<PaystackPay>
     _radioValue = 1;
 //    _fetchAccessCodeFrmServer2();
 
-    print(widget.price);
+    if(widget.type == "sub")
+    {
+      Provider.of<DatabaseService>(context, listen: false).addSubTrial(widget.plan, widget.bouq,
+          widget.month, widget.price.toString(), widget.iuc, widget.email, "backup");
+    }
+
 
   }
 

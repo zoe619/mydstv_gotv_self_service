@@ -480,14 +480,14 @@ class _SubscribeState extends State<Subscribe>
         }).toList(),
         style: TextStyle(fontSize: 20.0),
         decoration: InputDecoration(
-            labelText: 'Month',
+            labelText: 'No. Of Months',
             labelStyle: TextStyle(fontSize: 18.0),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
             )
         ),
         validator: (input)=>_month == null
-            ? "Please Select Month"
+            ? "Please Select No. Of Months"
             : null,
         onChanged: (value)
         {

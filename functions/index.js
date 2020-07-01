@@ -17,7 +17,7 @@ exports.messageTrigger = functions.firestore.document('Messages/{messageId}').on
 
   if(snapshot.empty)
   {
-     console.log("No data or device");
+     console.log("No data");
      return;
   }
 
@@ -27,7 +27,7 @@ exports.messageTrigger = functions.firestore.document('Messages/{messageId}').on
 
      for(var token of deviceTokens.docs)
      {
-        if(token.data().device_token !== "")
+        if(token.data().device_token !== null && token.data().deviceTokens !== "")
         {
            tokens.push(token.data().device_token);
         }

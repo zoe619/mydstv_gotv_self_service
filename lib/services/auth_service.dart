@@ -76,6 +76,7 @@ class AuthService{
     on PlatformException catch(err)
     {
       throw (err);
+
     }
   }
 
