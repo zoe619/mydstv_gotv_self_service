@@ -237,7 +237,7 @@ class _SubscribeState extends State<Subscribe>
           _bouqs != null ?
           _buildBouquetTF() : Platform.isIOS
               ? new CupertinoActivityIndicator() : CircularProgressIndicator() : SizedBox.shrink(),
-          _bouq != "Gotv Lite / Annually" && _bouq != "Gotv Lite / Quarterly" ?  _buildMonthsTF() : SizedBox.shrink(),
+          _bouq != "GOtv Lite / Quarterly, 1080" && _bouq != "GOtv Lite / Annually, 3180" ?  _buildMonthsTF() : SizedBox.shrink(),
         ],
       ),
 
@@ -363,19 +363,19 @@ class _SubscribeState extends State<Subscribe>
           });
           if(_bouq == "GOtv Lite / Quarterly, 1080")
           {
-            setState(() {
+            setState(()
+            {
               _months = ["4"];
-              _month = "4";
+              _month = "1";
               _getPrice(_bouq);
-
-
             });
           }
-          else if(_bouq == "GOtv Lite / Annually, 3180"){
+          else if(_bouq == "GOtv Lite / Annually, 3180")
+          {
 
             setState(() {
               _months = ["12"];
-              _month = "12";
+              _month = "1";
               _getPrice(_bouq);
 
             });
@@ -415,6 +415,8 @@ class _SubscribeState extends State<Subscribe>
               _price = _startPrice * int.parse(mon);
             });
           }
+
+
           _showPrice(_price, service_fee);
 
 

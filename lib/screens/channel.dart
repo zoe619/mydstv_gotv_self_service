@@ -179,7 +179,7 @@ class _ChannelState extends State<Channel>
       drawer: NavDrawer(),
       appBar: AppBar(
         title: Center(child:
-        Text('Channels Lists', style: TextStyle(
+        Text('Channels List', style: TextStyle(
           color: Colors.white,
           fontSize: 32.0,
         ),)),
@@ -336,7 +336,7 @@ class DataSearch extends SearchDelegate<String>
   {
 
 //    searches for something
-     channelList = query.isEmpty ? channel : channel.where((p) => p.channel.startsWith(query.substring(0, query.length).toUpperCase())).toList();
+     channelList = query.isEmpty ? channel : channel.where((p) => p.channel.contains(query.substring(0, query.length).toUpperCase())).toList();
      return _dataBody(channelList);
   }
 
