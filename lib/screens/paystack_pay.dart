@@ -74,13 +74,6 @@ class _PaystackPayState extends State<PaystackPay>
       amount = int.parse(widget.price) + 200;
     }
     _radioValue = 1;
-//    _fetchAccessCodeFrmServer2();
-
-    if(widget.type == "sub")
-    {
-      Provider.of<DatabaseService>(context, listen: false).addSubTrial(widget.plan, widget.bouq,
-          widget.month, widget.price.toString(), widget.iuc, widget.email, "backup");
-    }
 
 
   }
@@ -364,10 +357,18 @@ class _PaystackPayState extends State<PaystackPay>
       );
 
       setState(() => _inProgress = false);
-//      _updateStatus(response.reference, '$response');
+
+
+      if(widget.type == "sub")
+      {
+        Provider.of<DatabaseService>(context, listen: false).addSubTrial(widget.plan, widget.bouq,
+            widget.month, widget.price.toString(), widget.iuc, widget.email, "backup");
+      }
 
 
       bool resp = await _verifyOnServer(response.reference);
+
+
 
       if(resp)
       {
@@ -613,6 +614,13 @@ class _PaystackPayState extends State<PaystackPay>
     // This is called only after transaction is successful
     handleOnSuccess(Transaction transaction) async
     {
+
+      if(widget.type == "sub")
+      {
+        Provider.of<DatabaseService>(context, listen: false).addSubTrial(widget.plan, widget.bouq,
+            widget.month, widget.price.toString(), widget.iuc, widget.email, "backup");
+      }
+
       bool response = await _verifyOnServer(transaction.reference);
       if(response)
       {
