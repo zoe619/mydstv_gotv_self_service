@@ -239,77 +239,13 @@ class _PaystackPayState extends State<PaystackPay>
                             ),
                           ]),
                     )
-//                    new Expanded(
-//                      child: const Text('Initalize transaction from:'),
-//                    ),
-//                    new Expanded(
-//                      child: new Column(
-//                          mainAxisSize: MainAxisSize.min,
-//                          children: <Widget>[
-//                            new RadioListTile<int>(
-//                              value: 0,
-//                              groupValue: _radioValue,
-//                              onChanged: _handleRadioValueChanged,
-//                              title: const Text('Local'),
-//                            ),
-//                            new RadioListTile<int>(
-//                              value: 1,
-//                              groupValue: _radioValue,
-//                              onChanged: _handleRadioValueChanged,
-//                              title: const Text('Server'),
-//                            ),
-//                          ]),
-//                    )
+
                   ],
                 ),
 //                _border,
                 _verticalSizeBox,
                 _payValue == 1 ? _buildCard() : SizedBox.shrink(),
-//                new TextFormField(
-//                  decoration: const InputDecoration(
-//                    border: const UnderlineInputBorder(),
-//                    labelText: 'Card number',
-//                  ),
-//                  onSaved: (String value) => _cardNumber = value,
-//                ),
-//                _verticalSizeBox,
-//                new Row(
-//                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                  crossAxisAlignment: CrossAxisAlignment.center,
-//                  children: <Widget>[
-//                    new Expanded(
-//                      child: new TextFormField(
-//                        decoration: const InputDecoration(
-//                          border: const UnderlineInputBorder(),
-//                          labelText: 'CVV',
-//                        ),
-//                        onSaved: (String value) => _cvv = value,
-//                      ),
-//                    ),
-//                    _horizontalSizeBox,
-//                    new Expanded(
-//                      child: new TextFormField(
-//                        decoration: const InputDecoration(
-//                          border: const UnderlineInputBorder(),
-//                          labelText: 'Expiry Month',
-//                        ),
-//                        onSaved: (String value) =>
-//                        _expiryMonth = int.tryParse(value),
-//                      ),
-//                    ),
-//                    _horizontalSizeBox,
-//                    new Expanded(
-//                      child: new TextFormField(
-//                        decoration: const InputDecoration(
-//                          border: const UnderlineInputBorder(),
-//                          labelText: 'Expiry Year',
-//                        ),
-//                        onSaved: (String value) =>
-//                        _expiryYear = int.tryParse(value),
-//                      ),
-//                    )
-//                  ],
-//                ),
+
                 _verticalSizeBox,
                 Theme(
                   data: Theme.of(context).copyWith(
@@ -343,55 +279,7 @@ class _PaystackPayState extends State<PaystackPay>
                             height: 40.0,
                           ),
                          _payValue == 0 ? _buildCheckOut() : SizedBox.shrink(),
-//                          new Row(
-//                            mainAxisAlignment:
-//                            MainAxisAlignment.spaceBetween,
-//                            crossAxisAlignment: CrossAxisAlignment.center,
-//                            children: <Widget>[
-//                              new Flexible(
-//                                flex: 3,
-//                                child: new DropdownButtonHideUnderline(
-//                                  child: new InputDecorator(
-//                                    decoration: const InputDecoration(
-//                                      border: OutlineInputBorder(),
-//                                      isDense: true,
-//                                      hintText: 'Checkout method',
-//                                    ),
-//                                    isEmpty: _method == null,
-//                                    child: new DropdownButton<
-//                                        CheckoutMethod>(
-//                                      value: _method,
-//                                      isDense: true,
-//                                      onChanged: (CheckoutMethod value) {
-//                                        setState(() {
-//                                          _method = value;
-//                                        });
-//                                      },
-//                                      items: banks.map((String value) {
-//                                        return new DropdownMenuItem<
-//                                            CheckoutMethod>(
-//                                          value:
-//                                          _parseStringToMethod(value),
-//                                          child: new Text(value),
-//                                        );
-//                                      }).toList(),
-//                                    ),
-//                                  ),
-//                                ),
-//                              ),
-//                              _horizontalSizeBox,
-//                              new Flexible(
-//                                flex: 2,
-//                                child: new Container(
-//                                  width: double.infinity,
-//                                  child: _getPlatformButton(
-//                                    'Checkout',
-//                                        () => _handleCheckout(context),
-//                                  ),
-//                                ),
-//                              ),
-//                            ],
-//                          )
+
                         ],
                       );
                     },

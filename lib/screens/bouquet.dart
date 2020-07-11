@@ -215,7 +215,7 @@ class _BouquetState extends State<Bouquet>
       drawer: NavDrawer(),
       appBar: AppBar(
         title: Center(child:
-        Text('Channel Lists', style: TextStyle(
+        Text('Channels List', style: TextStyle(
           color: Colors.white,
           fontSize: 32.0,
         ),)),
