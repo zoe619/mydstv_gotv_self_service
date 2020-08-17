@@ -10,6 +10,7 @@ import 'package:mydstv_gotv_self_service/screens/reset_password.dart';
 import 'package:mydstv_gotv_self_service/services/auth_service.dart';
 import 'package:mydstv_gotv_self_service/services/database.dart';
 import 'package:provider/provider.dart';
+import 'package:email_validator/email_validator.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -25,6 +26,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool _isLoading = false;
   String _name, _email, _password, _phone;
+  bool _obscureText = true;
+  bool isChecked = false;
 
   _buildLoginForm(){
     return Form(
@@ -33,6 +36,16 @@ class _LoginScreenState extends State<LoginScreen> {
         children: <Widget>[
           _buildEmailTF(),
           _buildPasswordTF(),
+          SizedBox(height: 5.0),
+          Padding(
+            padding: const EdgeInsets.only(left:30.0),
+            child: Row(
+              children: <Widget>[
+                Text("Show Password: "),
+                _showP()
+              ],
+            ),
+          ),
         ],
       ),
 
@@ -49,6 +62,16 @@ class _LoginScreenState extends State<LoginScreen> {
           _buildEmailTF(),
           _buildPasswordTF(),
           _buildPhoneTF(),
+          SizedBox(height: 5.0),
+          Padding(
+            padding: const EdgeInsets.only(left:30.0),
+            child: Row(
+              children: <Widget>[
+                Text("Show Password: "),
+                _showP()
+              ],
+            ),
+          ),
         ],
       ),
 
@@ -93,9 +116,10 @@ class _LoginScreenState extends State<LoginScreen> {
           horizontal: 30.0,
           vertical: 10.0),
       child: TextFormField(
+        keyboardType: TextInputType.number,
         decoration: const InputDecoration(labelText: 'Phone Number'),
         validator: (input)=>
-        input.trim().isEmpty  ? 'Phone Can\'t Be Empty' : null,
+        input.trim().length != 11 ? 'Phone Can\'t Be Empty Or Less Than 11 Digits' : null,
         onSaved: (input)=>_phone = input.trim(),
 
       ),
@@ -112,12 +136,32 @@ class _LoginScreenState extends State<LoginScreen> {
         validator: (input)=>
         input.length < 6 ? 'Must be at least 6 chaacters' : null,
         onSaved: (input)=>_password = input,
-        obscureText: true,
+        obscureText: _obscureText,
       ),
 
     );
   }
 
+  _showP(){
+    return Checkbox(
+        value: isChecked,
+        onChanged: _showPass
+    );
+  }
+  void _showPass(bool newValue) => setState((){
+    isChecked  = newValue;
+    if (isChecked) {
+      setState(() {
+        _obscureText = false;
+      });
+
+
+    } else {
+      setState(() {
+        _obscureText = true;
+      });
+    }
+  });
 
   _submit() async
   {
@@ -135,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
     else if(_isLoading == false)
     {
       _scaffoldKey.currentState.showSnackBar(
-          new SnackBar(duration: new Duration(seconds: 60),
+          new SnackBar(duration: new Duration(seconds: 5),
             content:
             new Row(
               children: <Widget>[
@@ -183,9 +227,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
       }
       else
-      if (_selectedIndex == 1 && _signupFormKey.currentState.validate())
+      if(_selectedIndex == 1 && _signupFormKey.currentState.validate())
       {
+
         _signupFormKey.currentState.save();
+        final bool isValid = EmailValidator.validate(_email);
+        if(!isValid){
+          _showErrorDialog("Email Is Wrong", "Fail");
+          return;
+        }
 
 
         List res = await dbService.addUser(_name, _email, _phone, _password);
@@ -203,6 +253,7 @@ class _LoginScreenState extends State<LoginScreen> {
         }
         else
         {
+
              String res =  await authService.signUp(_name, _email, _password, _phone);
 
 //            setState(()

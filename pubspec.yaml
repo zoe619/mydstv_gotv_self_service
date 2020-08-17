@@ -47,6 +47,7 @@ dependencies:
   flutter_paystack: ^1.0.3
 
   flutter_launcher_icons: ^0.7.4
+  email_validator: '^1.0.0'
 
 
 
