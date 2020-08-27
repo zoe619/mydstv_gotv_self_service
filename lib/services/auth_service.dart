@@ -40,17 +40,17 @@ class AuthService{
         }
 
 
-       try
-       {
-         authResult.user.sendEmailVerification();
-         res = authResult.user.uid;
-       }
+        try
+        {
+          authResult.user.sendEmailVerification();
+          res = authResult.user.uid;
+        }
 
-       catch(e)
-       {
-         print("An error occured while trying to send email verification");
-         res = null;
-       }
+        catch(e)
+        {
+          print("An error occured while trying to send email verification");
+          res = null;
+        }
       }
     }
     on PlatformException catch(err){
@@ -61,8 +61,8 @@ class AuthService{
 
   Future<String> login(String email, String password) async {
     try{
-       AuthResult res =  await _auth.signInWithEmailAndPassword(email: email, password: password);
-       return res.user.uid;
+      AuthResult res =  await _auth.signInWithEmailAndPassword(email: email, password: password);
+      return res.user.uid;
 //      if(authResult.user.isEmailVerified)
 //      {
 //        return true;

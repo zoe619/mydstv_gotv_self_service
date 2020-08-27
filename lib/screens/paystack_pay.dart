@@ -610,7 +610,6 @@ class _PaystackPayState extends State<PaystackPay>
     }
 
 
-
     // This is called only after transaction is successful
     handleOnSuccess(Transaction transaction) async
     {
