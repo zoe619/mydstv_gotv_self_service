@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "598342244871",
+    "firebase_url": "https://doc-on-call-7bd35.firebaseio.com",
+    "project_id": "doc-on-call-7bd35",
+    "storage_bucket": "doc-on-call-7bd35.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:598342244871:android:049c623a580d98d702a8a2",
+        "android_client_info": {
+          "package_name": "com.zoe.doc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "598342244871-16en8pak05mtuc87r9tiddd2gdb79k2g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCeFH7QMOFBiL7HV3faSQ9fHeo0pORO78Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "598342244871-16en8pak05mtuc87r9tiddd2gdb79k2g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
