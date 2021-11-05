@@ -16,9 +16,9 @@ import 'package:provider/provider.dart';
 String backendUrl = 'https://api.paystack.co/transaction';
 
 
-String paystackSecretKey = 'sk_live_a9a87b7497c6a00f9b472e77198c5774a6378394';
+String paystackSecretKey = '';
 
-String paystackPublicKey = 'pk_live_140823c0754222c801446bd1b1b878f408f3b35a';
+String paystackPublicKey = '';
 
 
 class PaystackPay extends StatefulWidget
